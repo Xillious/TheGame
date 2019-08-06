@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool isRunning;
     private bool isSliding;
     private bool isCrouching;
+    private bool isAttacking;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -55,6 +56,10 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatIsGround;
 
+    public GameObject myWeapon;
+
+    //public scr_hitbox hitboxScript;
+    //
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -74,6 +79,17 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckIfWallSliding();
         //Debug.Log(rb.velocity.y);
+
+        // do an attack
+        // GetButtonDown only runs once
+        if (Input.GetButton("Attack"))
+        {
+            // if we have a weapon tell it to do its attack
+            if (myWeapon != null)
+            {
+                myWeapon.SendMessage("Attack");
+            }
+        }
     }
 
     private void FixedUpdate()
