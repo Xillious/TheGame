@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public float attackTime;
 
     private PlayerController thePlayer;
-    public GameObject player;
+    
     
     
 
@@ -29,24 +29,14 @@ public class Weapon : MonoBehaviour
         }
 
         
-        SetParent(player);
+        
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-    private void SetParent(GameObject newParent)
-    {
-        transform.SetParent(newParent.transform);
-        transform.localPosition = Vector3.zero;
-    }
-
-    private void DetatchFromParent()
-    {
-        transform.parent = null;
-    }
+   
 }

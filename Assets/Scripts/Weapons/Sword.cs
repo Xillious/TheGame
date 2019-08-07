@@ -5,6 +5,7 @@ using UnityEngine;
 public class Sword : Weapon
 {
     private BoxCollider2D hitBox;
+    public GameObject player;
     private List<GameObject> hitUnits = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -16,7 +17,8 @@ public class Sword : Weapon
     // Update is called once per frame
     void Update()
     {
-        
+
+    
     }
 
     public void Attack()
@@ -55,5 +57,26 @@ public class Sword : Weapon
     private void Hit(GameObject _target)
     {
         
+    }
+
+    private void SetParent(GameObject newParent)
+    {
+        transform.SetParent(newParent.transform);
+        transform.localPosition = Vector3.zero;
+    }
+
+    private void DetatchFromParent()
+    {
+        transform.parent = null;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        //need to add pickup key.  && Input.GetButtonDown("Pickup") wasnt working
+        if (other.CompareTag("Player"))
+        {
+            SetParent(player);
+            Debug.Log("Hello there");
+        }
     }
 }
