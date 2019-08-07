@@ -44,9 +44,9 @@ public class Sword : Weapon
         hitBox.enabled = false;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "enemy" && hitUnits.Contains(other.gameObject))
+        if (other.gameObject.tag == "Enemy" && hitUnits.Contains(other.gameObject))
         {
             hitUnits.Add(other.gameObject);
             Hit(other.gameObject);
@@ -56,7 +56,7 @@ public class Sword : Weapon
     //damage enemy
     private void Hit(GameObject _target)
     {
-        
+        Debug.Log("HIT ENEMY");
     }
 
     private void SetParent(GameObject newParent)
