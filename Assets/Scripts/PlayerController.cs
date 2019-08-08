@@ -30,9 +30,12 @@ public class PlayerController : MonoBehaviour
     private bool isSliding;
     private bool isCrouching;
     private bool isAttacking;
+    
 
     private Rigidbody2D rb;
     private Animator anim;
+
+    public bool hasWeapon = false;
 
     public int int_amountOfJumps = 1;                           // amount of jumps -_-
 
@@ -82,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
         // do an attack
         // GetButtonDown only runs once
-        if (Input.GetButton("Attack"))
+        if (Input.GetButtonDown("Attack"))
         {
             // if we have a weapon tell it to do its attack
             if (myWeapon != null)
@@ -202,7 +205,7 @@ public class PlayerController : MonoBehaviour
             amountOfJumpsLeft--;
             Vector2 forceToAdd = new Vector2(wallHopForce * wallHopDirection.x * -facingDirection, wallHopForce * wallHopDirection.y);
             rb.AddForce(forceToAdd, ForceMode2D.Impulse);
-            Debug.Log("Hop");
+            //Debug.Log("Hop");
         }
         else if ((isWallSliding || isTouchingWall) && movementInputDirection != 0 && canJump && leftWallTime > 0) // wall jump
         {
@@ -210,7 +213,7 @@ public class PlayerController : MonoBehaviour
             amountOfJumpsLeft--;
             Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * movementInputDirection, wallJumpForce * wallJumpDirection.y);
             rb.AddForce(forceToAdd, ForceMode2D.Impulse);
-            Debug.Log("Jump");
+            //Debug.Log("Jump");
         }
         
     }
@@ -249,7 +252,7 @@ public class PlayerController : MonoBehaviour
         if (isCrouching)
         {
             moveSpeed = 5;
-            Debug.Log("Crouching");
+            //Debug.Log("Crouching");
         }
         else
         {
@@ -269,7 +272,8 @@ public class PlayerController : MonoBehaviour
             // if its inside here the player cant just let go of the wall
             facingDirection *= -1;
             isFacingRight = !isFacingRight;
-            transform.Rotate(0.0f, 180.0f, 0.0f);
+            transform.Rotate(0, 180, 0);
+           // GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
         }
         
     }

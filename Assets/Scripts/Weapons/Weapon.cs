@@ -5,15 +5,15 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public float damage;
-    public float attackTime;
+    public float attackDuration;
 
-    private PlayerController thePlayer;
+    public PlayerController thePlayer;
     
     
     
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         thePlayer = FindObjectOfType<PlayerController>();
         

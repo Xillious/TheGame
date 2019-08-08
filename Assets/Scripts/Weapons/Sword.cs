@@ -5,8 +5,11 @@ using UnityEngine;
 public class Sword : Weapon
 {
     private BoxCollider2D hitBox;
-    public GameObject player;
     private List<GameObject> hitUnits = new List<GameObject>();
+   
+
+   public bool canPickup = false;
+    private bool isFacingRight = true;
 
     // Start is called before the first frame update
     void Start()
@@ -17,36 +20,58 @@ public class Sword : Weapon
     // Update is called once per frame
     void Update()
     {
+        if (canPickup && Input.GetButtonDown("Pickup") && thePlayer.hasWeapon == false)
+        {
+            transform.SetParent(thePlayer.transform);
+            canPickup = false;
+            thePlayer.hasWeapon = true;
+            //change the player myWeapon reference.
+           thePlayer.myWeapon = this.gameObject;
 
-    
+           
+            if (thePlayer.transform.localEulerAngles.y != 0)
+            {
+                //Flip();
+                Debug.Log("Flip Weapon");
+            }
+            
+        }
+
+        if (Input.GetButtonDown("Drop") && thePlayer.hasWeapon == true)
+        {
+            DetatchFromParent();
+            thePlayer.hasWeapon = false;
+        }
     }
+
+    private Coroutine attacking;
 
     public void Attack()
     {
-       // Debug.Log("Doing an attack");
-       // //enable weapon collider
-       // //animation 
-       // //audio
+        // Debug.Log("Doing an attack");
+        // //enable weapon collider
+        // //animation 
+        // //audio
+        
+        if (attacking != null)
+            StopCoroutine(attacking);
 
-        StartCoroutine(CRT_Attack());
+        attacking = StartCoroutine(CRT_Attack());
     }
 
     private IEnumerator CRT_Attack()
     {
         hitUnits.Clear();
         hitBox.enabled = true;
-        float _attackDuration = 0.5f;
-        while (_attackDuration > 0)
-        {
-             _attackDuration -= Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSecondsRealtime(attackDuration);
         hitBox.enabled = false;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" && hitUnits.Contains(other.gameObject))
+        //Debug.Log("Hit " + other.gameObject.name + " at time " + Time.time.ToString());
+
+        if (other.gameObject.tag == "Enemy" && !hitUnits.Contains(other.gameObject))
         {
             hitUnits.Add(other.gameObject);
             Hit(other.gameObject);
@@ -63,6 +88,7 @@ public class Sword : Weapon
     {
         transform.SetParent(newParent.transform);
         transform.localPosition = Vector3.zero;
+       
     }
 
     private void DetatchFromParent()
@@ -72,11 +98,24 @@ public class Sword : Weapon
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        //need to add pickup key.  && Input.GetButtonDown("Pickup") wasnt working
+        //need to add pickup key.  &&  wasnt working
         if (other.CompareTag("Player"))
         {
-            SetParent(player);
-            Debug.Log("Hello there");
+            canPickup = true;
         }
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canPickup = false;
+        }
+    }
+
+    private void Flip()
+    {
+        
+        transform.Rotate(0, 180, 0);
     }
 }
