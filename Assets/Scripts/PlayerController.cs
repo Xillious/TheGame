@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private int facingDirection = 1;
     private int amountOfJumps;                              // amount of jumps -_-
 
-    private bool isFacingRight = true;
+    
     private bool isGrounded;                                // is the player currnetly on the ground
     private bool isTouchingWall;                            // is the player touching the wall
     private bool isWallSliding;                             // is the player currently wall sliding
@@ -35,7 +35,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    public bool hasWeapon = false;
+    public bool isFacingRight = true;                       // is the payer currently facing right.
+    public bool hasWeapon = false;                          // has the player currently got a weapon.
+    public bool weaponInPickupRange = false;
 
     public int int_amountOfJumps = 1;                           // amount of jumps -_-
 
@@ -60,6 +62,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
 
     public GameObject myWeapon;
+    public GameObject weaponInRange;
+    public GameObject weaponPosition;
 
     //public scr_hitbox hitboxScript;
     //
@@ -85,14 +89,7 @@ public class PlayerController : MonoBehaviour
 
         // do an attack
         // GetButtonDown only runs once
-        if (Input.GetButtonDown("Attack"))
-        {
-            // if we have a weapon tell it to do its attack
-            if (myWeapon != null)
-            {
-                myWeapon.SendMessage("Attack");
-            }
-        }
+        
     }
 
     private void FixedUpdate()
@@ -189,6 +186,31 @@ public class PlayerController : MonoBehaviour
         {
             isCrouching = false;
         }
+
+        if (Input.GetButtonDown("Attack"))
+        {
+            // if we have a weapon tell it to do its attack
+            if (myWeapon != null)
+            {
+                myWeapon.SendMessage("Attack");
+            }
+        }
+
+        if (Input.GetButtonDown("Pickup") && weaponInPickupRange == true && hasWeapon == false)
+        {
+            myWeapon = weaponInRange;
+            myWeapon.SendMessage("Pickup");
+            weaponInPickupRange = false;
+            
+        }
+
+        if (Input.GetButtonDown("Drop"))
+        {
+            if (myWeapon != null)
+            {
+            myWeapon.SendMessage("Drop");
+            }
+        }
     }
 
     private void Jump()
@@ -274,9 +296,25 @@ public class PlayerController : MonoBehaviour
             isFacingRight = !isFacingRight;
             transform.Rotate(0, 180, 0);
            // GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-        }
-        
+        }  
     }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Weapon"))
+        {
+            weaponInPickupRange = true;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Weapon"))
+        {
+            weaponInPickupRange = false;
+        }
+    }
+
     private void InitialiseVariables()
     {
         moveSpeed = int_moveSpeed;

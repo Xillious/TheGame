@@ -5,6 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public float damage;
+    public float attackBuildup;
     public float attackDuration;
 
     public PlayerController thePlayer;
