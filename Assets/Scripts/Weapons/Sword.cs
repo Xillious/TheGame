@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class Sword : Weapon
 {
-    private BoxCollider2D hitBox;
-    
-
-    private List<GameObject> hitUnits = new List<GameObject>();
-
     public bool canPickup = false;
     private bool weaponFacingRight = true;
 
+    private BoxCollider2D hitBox;
    
+    private List<GameObject> hitUnits = new List<GameObject>();
+
+    public GameObject weaponIcon;
+
+    private SpriteRenderer icon;
+
+    private Animator anim;
 
    
     void Start()
     {
         hitBox = GetComponent<BoxCollider2D>();
+        weaponIcon = GameObject.Find("Weapon Icon");
+        icon = weaponIcon.GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
+        
         
     }
 
@@ -98,6 +105,7 @@ public class Sword : Weapon
         {
             canPickup = true;
             thePlayer.weaponInRange = this.gameObject;
+            icon.enabled = true;
         }
     }
 
@@ -107,6 +115,7 @@ public class Sword : Weapon
         {
             canPickup = false;
             thePlayer.weaponInRange = null;
+            icon.enabled = false;
         } 
     }
 

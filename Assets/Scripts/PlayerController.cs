@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private bool canJump;                                   // can the player jump
     private bool isRunning;
     private bool isSliding;
-    private bool isCrouching;
+    public bool isCrouching;
     private bool isAttacking;
     
 
