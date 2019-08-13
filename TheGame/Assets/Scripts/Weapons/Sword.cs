@@ -17,13 +17,17 @@ public class Sword : Weapon
 
     private Animator anim;
 
-   
+    private WeaponAttack weaponAttack;
+
+    private Coroutine attacking;
+
     void Start()
     {
         hitBox = GetComponent<BoxCollider2D>();
         weaponIcon = GameObject.Find("Weapon Icon");
         icon = weaponIcon.GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        weaponAttack = FindObjectOfType<WeaponAttack>();
     }
 
     void Update()
@@ -32,8 +36,12 @@ public class Sword : Weapon
         
     }
 
-    private Coroutine attacking;
+    public void Attack()
+    {
+        weaponAttack.SwingWeapon();
+    }
 
+    /*
     public void Attack()
     {
    
@@ -45,6 +53,7 @@ public class Sword : Weapon
 
         attacking = StartCoroutine(CRT_Attack());
     }
+    */
 
     public void Pickup()
     {   
@@ -64,6 +73,7 @@ public class Sword : Weapon
         } 
     }
 
+    /*
     private IEnumerator CRT_Attack()
     {
         hitUnits.Clear();
@@ -87,6 +97,7 @@ public class Sword : Weapon
     {
         Debug.Log("HIT ENEMY");
     }
+    */
 
     private void SetParent(GameObject newParent)
     {   
@@ -101,8 +112,18 @@ public class Sword : Weapon
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        /*
         if (other.CompareTag("Player"))
         {
+            canPickup = true;
+            thePlayer.weaponInRange = this.gameObject;
+            icon.enabled = true;
+        }
+        */
+
+        if (other.gameObject.layer == 9)
+        {
+            Debug.Log("Colliding with player");
             canPickup = true;
             thePlayer.weaponInRange = this.gameObject;
             icon.enabled = true;
@@ -111,12 +132,21 @@ public class Sword : Weapon
 
     public void OnTriggerExit2D(Collider2D other)
     {
+        /*
         if (other.CompareTag("Player"))
         {
             canPickup = false;
             thePlayer.weaponInRange = null;
             icon.enabled = false;
         } 
+        */
+
+        if (other.gameObject.layer == 9)
+        {
+            canPickup = false;
+            thePlayer.weaponInRange = null;
+            icon.enabled = false;
+        }
     }
 
 }

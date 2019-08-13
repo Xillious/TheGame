@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if (Input.GetButtonDown("Drop"))
+        if (Input.GetButtonDown("Drop") && hasWeapon)
         {
             if (myWeapon != null)
             {
@@ -269,6 +269,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -wallSlidingSpeed);
                 leftWallTime = int_leftWallTime;
             }
+            
         }
 
         if (isCrouching)
