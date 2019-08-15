@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponAttack : MonoBehaviour
+public class WeaponAttack : Weapon
 {
     private Coroutine attacking;
 
@@ -47,9 +47,11 @@ public class WeaponAttack : MonoBehaviour
             hitUnits.Add(other.gameObject);
             Hit(other.gameObject);
         }
+
+
         */
 
-        if (other.gameObject.layer == 10 && !hitUnits.Contains(other.gameObject))
+        if (!hitUnits.Contains(other.gameObject))
         {
             hitUnits.Add(other.gameObject);
             Hit(other.gameObject);
@@ -59,6 +61,10 @@ public class WeaponAttack : MonoBehaviour
     //damage enemy
     private void Hit(GameObject _target)
     {
-        Debug.Log("HIT ENEMY");
+        if (_target.gameObject.layer == 10)
+        {
+            Debug.Log("HIT ENEMY");
+            _target.GetComponent<Enemy>().TakeDamage(damage);
+        }
     }
 }

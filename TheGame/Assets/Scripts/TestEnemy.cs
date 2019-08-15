@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class TestEnemy : Enemy
 {
-    // Start is called before the first frame update
+
+    private float health;
+
     void Start()
+    {
+        InitialiseVariables();
+    }
+   
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitialiseVariables()
     {
-        
+            health = Int_Health;
     }
 }

@@ -123,7 +123,6 @@ public class Sword : Weapon
 
         if (other.gameObject.layer == 9)
         {
-            Debug.Log("Colliding with player");
             canPickup = true;
             thePlayer.weaponInRange = this.gameObject;
             icon.enabled = true;

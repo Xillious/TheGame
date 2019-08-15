@@ -65,6 +65,9 @@ public class PlayerController : MonoBehaviour
     public GameObject weaponInRange;
     public GameObject weaponPosition;
 
+    private WeaponBob _weaponBob;
+    private bool idling;
+
     //public scr_hitbox hitboxScript;
     //
     void Start()
@@ -75,6 +78,8 @@ public class PlayerController : MonoBehaviour
         wallHopDirection.Normalize();
         wallJumpDirection.Normalize();
         InitialiseVariables();
+        _weaponBob = transform.GetComponentInChildren<WeaponBob>();
+        idling = true;
     }
 
     
@@ -89,7 +94,26 @@ public class PlayerController : MonoBehaviour
 
         // do an attack
         // GetButtonDown only runs once
-        
+
+      
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle")) {
+            if (idling == false)
+				{
+                // we just switched to idle
+                _weaponBob.StartBobbing();
+				Debug.Log("starting bobbing at " + Time.time.ToString());
+            }
+            idling = true;
+        } else {
+            if (idling)
+            {
+                // we just switched off idle
+                _weaponBob.StopBobbing();
+				Debug.Log("stopping bobbing at " + Time.time.ToString());
+			}
+            idling = false;
+        }
     }
 
     private void FixedUpdate()
@@ -175,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonUp("Jump"))
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);           
         }
 
         if (Input.GetButton("Crouch") && isGrounded)
