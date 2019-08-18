@@ -65,12 +65,9 @@ public class Sword : Weapon
 
     public void Drop()
     {
-        if (Input.GetButtonDown("Drop") && thePlayer.hasWeapon)
-        {
-            DetatchFromParent();
-            thePlayer.hasWeapon = false;
-            thePlayer.myWeapon = null;
-        } 
+        DetatchFromParent();
+        thePlayer.hasWeapon = false;
+        thePlayer.myWeapon = null;
     }
 
     /*

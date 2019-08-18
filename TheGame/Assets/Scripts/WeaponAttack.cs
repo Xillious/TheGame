@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponAttack : Weapon
+public class WeaponAttack : MonoBehaviour
 {
     private Coroutine attacking;
 
@@ -64,7 +64,26 @@ public class WeaponAttack : Weapon
         if (_target.gameObject.layer == 10)
         {
             Debug.Log("HIT ENEMY");
-            _target.GetComponent<Enemy>().TakeDamage(damage);
+            _target.GetComponent<Enemy>().TakeDamage(weapon.damage);
+
+            Rigidbody2D enemy = _target.GetComponent<Rigidbody2D>();
+            if (enemy != null)
+            {
+                enemy.isKinematic = false;
+                Vector2 difference = enemy.transform.position - transform.position;
+                difference = difference.normalized * weapon.knockback;
+                enemy.AddForce(difference, ForceMode2D.Impulse);
+                StartCoroutine(CRT_Knockback(enemy));
+            }
+        }
+    }
+        private IEnumerator CRT_Knockback(Rigidbody2D enemy)
+    {
+        if (enemy != null)
+        {
+            yield return new WaitForSeconds(weapon.knockbackTime);
+            enemy.velocity = Vector2.zero;
+            enemy.isKinematic = true;
         }
     }
 }

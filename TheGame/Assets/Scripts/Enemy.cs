@@ -4,38 +4,39 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-	private int aiState = 0; // 0 = normal | 1 = aggro
-	private float cooldown_max = 120, cooldown_current = 0;
-	private GameObject target;
+    public float moveSpeed;
+    public float enemyKnockback;
+    public float enemyKnockbackTime;
 
-	public float Int_Health;
-    
+    public int health;
+    public int baseAttack;
 
-    void Start()
+    public string enemyName;
+
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        
+        if (other.collider.CompareTag("Player"))
+        {
+            Rigidbody2D player = other.collider.GetComponent<Rigidbody2D>();
+            if (player != null)
+            {
+                Debug.Log("ENEMY HIT PLAYER");
+                Vector2 difference = player.transform.position - transform.position;
+                difference = difference.normalized * enemyKnockback;
+                player.AddForce(difference, ForceMode2D.Impulse);
+                StartCoroutine(CRT_EnemyKnockback(player));
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator CRT_EnemyKnockback(Rigidbody2D player)
     {
-		switch (aiState) {
-			case 0: // normal
-				// idle actions
+        if (player != null)
+        {
+            yield return new WaitForSeconds(enemyKnockbackTime);
+            player.velocity = Vector2.zero;
 
-				break;
-			case 1: // aggro
-				// aggro actions
-				/*
-				 * if (Vector2.Distance(transform.position, target.transform.position) > 2){
-				 * transform.position = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
-				 * }
-				 * else if (Vector2.Distance() <= 2){
-				 * Attack();
-				 * }
-				 */
-				break;
-		}
+        }
     }
 
     public void TakeDamage(float damage)
@@ -43,14 +44,4 @@ public class Enemy : MonoBehaviour
         //hitpoints -= damage
         //check if dead.
     }
-
-	private void OnTriggerEnter(Collider other)
-	{
-		/*
-		 * if (other.collider.tag == "unit" && other.collider.gameObject.GetComponent<unitScript>().faction != faction{
-		 * target = other.collider.gameObject;
-		 * aiState = 1;
-		 * }
-		 */
-	}
 }

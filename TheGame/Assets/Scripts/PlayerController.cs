@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     private float wallHopForce;                              // how high the player jumps up the wall
     private float wallJumpForce;                             // how far the player jumps away from the wall
     private float leftWallTime;
+    private float crouchSpeed;                               // movement speed while crouching
+    private float dashCheckDistance = 2;                     // check if player is too close to wall (must be higher than dash distance)
+    private float dashDistance;
 
     private int amountOfJumpsLeft;
     private int facingDirection = 1;
@@ -30,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private bool isSliding;
     public bool isCrouching;
     private bool isAttacking;
-    
+    private bool tooCloseToDash;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -52,6 +55,8 @@ public class PlayerController : MonoBehaviour
     public float int_wallHopForce;                              
     public float int_wallJumpForce;                             
     public float int_leftWallTime = 0.2f;
+    public float int_crouchSpeed;
+    public float int_dashDistance;
 
     public Vector2 wallHopDirection;
     public Vector2 wallJumpDirection;
@@ -67,6 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private WeaponBob _weaponBob;
     private bool idling;
+
 
     //public scr_hitbox hitboxScript;
     //
@@ -90,19 +96,13 @@ public class PlayerController : MonoBehaviour
         UpdateAnimations();
         CheckIfCanJump();
         CheckIfWallSliding();
-        //Debug.Log(rb.velocity.y);
-
-        // do an attack
-        // GetButtonDown only runs once
-
-      
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle")) {
             if (idling == false)
 				{
                 // we just switched to idle
                 _weaponBob.StartBobbing();
-				Debug.Log("starting bobbing at " + Time.time.ToString());
+				//Debug.Log("starting bobbing at " + Time.time.ToString());
             }
             idling = true;
         } else {
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
             {
                 // we just switched off idle
                 _weaponBob.StopBobbing();
-				Debug.Log("stopping bobbing at " + Time.time.ToString());
+				//Debug.Log("stopping bobbing at " + Time.time.ToString());
 			}
             idling = false;
         }
@@ -147,8 +147,8 @@ public class PlayerController : MonoBehaviour
     private void CheckSurroundings()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
+        tooCloseToDash = Physics2D.Raycast(wallCheck.position, transform.right, dashCheckDistance, whatIsGround);
     }
 
     private void CheckIfCanJump()
@@ -235,6 +235,21 @@ public class PlayerController : MonoBehaviour
             myWeapon.SendMessage("Drop");
             }
         }
+
+        if (Input.GetButtonDown("Dash") && !tooCloseToDash)
+        {
+            Dash(dashDistance);
+        }
+
+        if (Input.GetButtonDown("Select"))
+        {
+            InitialiseVariables();
+        }
+
+        if (Input.GetButtonDown("Start"))
+        {
+            Debug.Log("Start");
+        }
     }
 
     private void Jump()
@@ -298,7 +313,7 @@ public class PlayerController : MonoBehaviour
 
         if (isCrouching)
         {
-            moveSpeed = 5;
+            moveSpeed = crouchSpeed;
             //Debug.Log("Crouching");
         }
         else
@@ -310,6 +325,19 @@ public class PlayerController : MonoBehaviour
         {
             leftWallTime -= Time.deltaTime;
         }
+    }
+
+    public void Knockback(float knockback)
+    {
+        Vector2 difference = rb.transform.position - transform.position;
+        difference = difference.normalized * knockback;
+        rb.AddForce(difference, ForceMode2D.Impulse);
+    }
+
+    private void Dash(float distance)
+    {
+        transform.position += new Vector3(movementInputDirection, 0) * distance; 
+        //transform.position = Vector3.Lerp(transform.position, (transform.position += new Vector3(movementInputDirection, 0) * distance), .5f);
     }
 
     private void Flip()
@@ -354,13 +382,16 @@ public class PlayerController : MonoBehaviour
         wallJumpForce = int_wallJumpForce;
         leftWallTime = int_leftWallTime;
         amountOfJumps = int_amountOfJumps;
+        crouchSpeed = int_crouchSpeed;
+        dashDistance = int_dashDistance;
 }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-
+        
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + dashCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
 
    

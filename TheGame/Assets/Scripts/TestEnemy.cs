@@ -5,11 +5,11 @@ using UnityEngine;
 public class TestEnemy : Enemy
 {
 
-    private float health;
+   
 
     void Start()
     {
-        InitialiseVariables();
+        
     }
    
     void Update()
@@ -17,8 +17,5 @@ public class TestEnemy : Enemy
         
     }
 
-    private void InitialiseVariables()
-    {
-            health = Int_Health;
-    }
+    
 }

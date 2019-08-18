@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
     public float damage;
     public float attackBuildup;
     public float attackDuration;
+    public float knockback;
+    public float knockbackTime;
 
     public PlayerController thePlayer;
     
