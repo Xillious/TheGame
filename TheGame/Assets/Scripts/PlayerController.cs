@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float leftWallTime;
     private float crouchSpeed;                               // movement speed while crouching
     private float dashCheckDistance = 2;                     // check if player is too close to wall (must be higher than dash distance)
-    private float dashDistance;
+    private float dashDistance;                              // how far the player dahshes. (must be less than dashCheckDistance)
 
     private int amountOfJumpsLeft;
     private int facingDirection = 1;
@@ -29,20 +29,20 @@ public class PlayerController : MonoBehaviour
     private bool isTouchingWall;                            // is the player touching the wall
     private bool isWallSliding;                             // is the player currently wall sliding
     private bool canJump;                                   // can the player jump
-    private bool isRunning;
-    private bool isSliding;
-    public bool isCrouching;
-    private bool isAttacking;
-    private bool tooCloseToDash;
+    private bool isRunning;                                 // is the player running
+    private bool isSliding;                                 // is the player sliding (Not in i dont think)
+    public bool isCrouching;                                // is the player currently crouching.
+    private bool isAttacking;                               // is the player currently attacking
+    private bool tooCloseToDash;                            // player is too close to a wall to dash (so they dont clip through the wall)
 
     private Rigidbody2D rb;
     private Animator anim;
 
     public bool isFacingRight = true;                       // is the payer currently facing right.
     public bool hasWeapon = false;                          // has the player currently got a weapon.
-    public bool weaponInPickupRange = false;
+    public bool weaponInPickupRange = false;                // is there a weapon in picup range?
 
-    public int int_amountOfJumps = 1;                           // amount of jumps -_-
+    public int int_amountOfJumps = 1;                      // amount of jumps -_-
 
     public float int_moveSpeed;
     public float int_jumpForce;
@@ -61,14 +61,14 @@ public class PlayerController : MonoBehaviour
     public Vector2 wallHopDirection;
     public Vector2 wallJumpDirection;
 
-    public Transform groundCheck;
+    public Transform groundCheck;                          
     public Transform wallCheck;
 
     public LayerMask whatIsGround;
 
-    public GameObject myWeapon;
-    public GameObject weaponInRange;
-    public GameObject weaponPosition;
+    public GameObject myWeapon;                                // players currently equiped weapon
+    public GameObject weaponInRange;                           // weapon in pickup range
+    public GameObject weaponPosition;                          // where the weapon gets placed
 
     private WeaponBob _weaponBob;
     private bool idling;
@@ -388,9 +388,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        //ground check
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-        
+        //wall check
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        //dash check distance
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + dashCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
 

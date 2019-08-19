@@ -5,13 +5,26 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float moveSpeed;
+    public float attackCharge;
+    public float damage;
     public float enemyKnockback;
     public float enemyKnockbackTime;
+    public float atackRadius;
+    public float chaseRadius;
 
-    public int health;
+    public float health = 5;
     public int baseAttack;
 
+    public bool isGrounded;
+
     public string enemyName;
+
+   
+
+    private void Start()
+    {
+       
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -39,9 +52,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+       
+    }
+
     public void TakeDamage(float damage)
     {
         //hitpoints -= damage
         //check if dead.
+        health -= damage;
+        if (health <= 0)
+        {
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
     }
 }

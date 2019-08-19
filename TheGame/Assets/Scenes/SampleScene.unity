@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7438d86d1c18c024fa5a229503954766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
   attackBuildup: 0
   attackDuration: 1
   knockback: 3
@@ -8331,7 +8331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996594791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.81, y: -2.09, z: 0}
+  m_LocalPosition: {x: -2.95, y: -1.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8371,10 +8371,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
+  attackCharge: 0
+  damage: 0
   enemyKnockback: 45
   enemyKnockbackTime: 0
+  atackRadius: 0
+  chaseRadius: 0
   health: 3
   baseAttack: 0
+  isGrounded: 0
   enemyName: Box
 --- !u!1 &2084959524
 GameObject:
