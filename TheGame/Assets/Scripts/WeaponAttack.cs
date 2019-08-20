@@ -12,10 +12,13 @@ public class WeaponAttack : MonoBehaviour
 
     private Weapon weapon;
 
+    private SpriteRenderer hitboxSpriteTest;
+
     void Start()
     {
         hitBox = GetComponent<BoxCollider2D>();
         weapon = FindObjectOfType<Weapon>();
+        hitboxSpriteTest = GetComponent<SpriteRenderer>();
     }
 
     public void SwingWeapon()
@@ -34,9 +37,15 @@ public class WeaponAttack : MonoBehaviour
     {
         hitUnits.Clear();
         yield return new WaitForSecondsRealtime(weapon.attackBuildup);
-        hitBox.enabled = true;
+        {
+            hitBox.enabled = true;
+            hitboxSpriteTest.enabled = true;
+        }
         yield return new WaitForSecondsRealtime(weapon.attackDuration);
-        hitBox.enabled = false;
+        {
+            hitBox.enabled = false;
+            hitboxSpriteTest.enabled = false;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
