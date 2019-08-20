@@ -16,14 +16,15 @@ public class Enemy : MonoBehaviour
     public int baseAttack;
 
     public bool isGrounded;
+    public bool isFacingRight;
 
     public string enemyName;
 
-   
+    public PlayerController playerController;
 
     private void Start()
     {
-       
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -33,14 +34,27 @@ public class Enemy : MonoBehaviour
             Rigidbody2D player = other.collider.GetComponent<Rigidbody2D>();
             if (player != null)
             {
-                Debug.Log("ENEMY HIT PLAYER");
-                Vector2 difference = player.transform.position - transform.position;
-                difference = difference.normalized * enemyKnockback;
-                player.AddForce(difference, ForceMode2D.Impulse);
-                StartCoroutine(CRT_EnemyKnockback(player));
+                other.collider.GetComponent<PlayerController>().StartKnockback(enemyKnockbackTime);
+
+                // Vector2 difference = player.transform.position - transform.position;
+                // difference = difference.normalized * enemyKnockback;
+                //player.AddForce(difference, ForceMode2D.Impulse);
+
+                if (!other.collider.GetComponent<PlayerController>().isFacingRight)
+                {
+                    player.AddForce(new Vector3(1, 1, 0) * enemyKnockback, ForceMode2D.Impulse);
+                }
+                else if (other.collider.GetComponent<PlayerController>().isFacingRight)
+                {
+                    player.AddForce(new Vector3(-1, 1, 0) * enemyKnockback, ForceMode2D.Impulse);
+                }
+                
             }
+         
         }
     }
+
+ 
 
     private IEnumerator CRT_EnemyKnockback(Rigidbody2D player)
     {
@@ -48,8 +62,13 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitForSeconds(enemyKnockbackTime);
             player.velocity = Vector2.zero;
-
+            //playerController.beingKnockedBack = false;
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)

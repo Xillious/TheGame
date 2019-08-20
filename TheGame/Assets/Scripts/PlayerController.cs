@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private float crouchSpeed;                               // movement speed while crouching
     private float dashCheckDistance = 2;                     // check if player is too close to wall (must be higher than dash distance)
     private float dashDistance;                              // how far the player dahshes. (must be less than dashCheckDistance)
+    public float dashTime;
 
     private int amountOfJumpsLeft;
     private int facingDirection = 1;
@@ -28,12 +29,15 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;                                // is the player currnetly on the ground
     private bool isTouchingWall;                            // is the player touching the wall
     private bool isWallSliding;                             // is the player currently wall sliding
-    private bool canJump;                                   // can the player jump
+    public bool canJump;                                   // can the player jump
     private bool isRunning;                                 // is the player running
     private bool isSliding;                                 // is the player sliding (Not in i dont think)
     public bool isCrouching;                                // is the player currently crouching.
     private bool isAttacking;                               // is the player currently attacking
     private bool tooCloseToDash;                            // player is too close to a wall to dash (so they dont clip through the wall)
+    private bool isTouchingPlatform;
+    private bool isTouchingEnemy;
+    public bool beingKnockedBack;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -65,6 +69,8 @@ public class PlayerController : MonoBehaviour
     public Transform wallCheck;
 
     public LayerMask whatIsGround;
+    public LayerMask whatIsPlatform;
+    public LayerMask whatIsEnemy;
 
     public GameObject myWeapon;                                // players currently equiped weapon
     public GameObject weaponInRange;                           // weapon in pickup range
@@ -122,6 +128,35 @@ public class PlayerController : MonoBehaviour
         CheckSurroundings();
     }
 
+    public void StartKnockback (float knockbackTime)
+    {
+        if (beingKnockedBack)
+            return;
+
+        beingKnockedBack = true;
+        StartCoroutine(StopKnockback(knockbackTime));
+    }
+
+    private IEnumerator StopKnockback(float knockbackTime)
+    {
+        yield return new WaitForSeconds(knockbackTime);
+
+        beingKnockedBack = false;
+    }
+
+    public void StartDash (float dashSpeed)
+    {
+        moveSpeed = dashSpeed;
+        StartCoroutine(StopDash(dashTime));
+    }
+
+    private IEnumerator StopDash(float dashTime)
+    {
+        yield return new WaitForSeconds(dashTime);
+
+        moveSpeed = int_moveSpeed;
+    }
+
     private void UpdateAnimations()
     {
         anim.SetBool("isRunning", isRunning);
@@ -149,6 +184,8 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
         tooCloseToDash = Physics2D.Raycast(wallCheck.position, transform.right, dashCheckDistance, whatIsGround);
+        isTouchingPlatform = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsPlatform);
+        isTouchingEnemy = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsEnemy);
     }
 
     private void CheckIfCanJump()
@@ -236,9 +273,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Dash") && !tooCloseToDash)
+        if (Input.GetButtonDown("Dash") && !tooCloseToDash && beingKnockedBack == false)
         {
-            Dash(dashDistance);
+            // Dash(dashDistance);
+            StartDash(50f);
+            Debug.Log("dashing");
         }
 
         if (Input.GetButtonDown("Select"))
@@ -281,7 +320,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMovement()
     {
-        if (isGrounded)
+        if (isGrounded && beingKnockedBack == false)
         {
             rb.velocity = new Vector2(moveSpeed * movementInputDirection, rb.velocity.y);
             leftWallTime = int_leftWallTime; ;
@@ -295,6 +334,8 @@ public class PlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2(moveSpeed * movementInputDirection, rb.velocity.y);
             }
+
+            //rb.velocity = Vector2.ClampMagnitude(rb.velocity, moveSpeed);
         }
         else if (!isGrounded && !isWallSliding && movementInputDirection == 0)
         {
@@ -324,6 +365,11 @@ public class PlayerController : MonoBehaviour
         if (!isGrounded && !isWallSliding && movementInputDirection != 0)
         {
             leftWallTime -= Time.deltaTime;
+        }
+
+        if (isTouchingPlatform)
+        {
+            isWallSliding = false;
         }
     }
 
@@ -393,7 +439,7 @@ public class PlayerController : MonoBehaviour
         //wall check
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
         //dash check distance
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + dashCheckDistance, wallCheck.position.y, wallCheck.position.z));
+       // Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + dashCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
 
    

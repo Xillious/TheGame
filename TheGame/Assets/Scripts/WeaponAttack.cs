@@ -80,9 +80,16 @@ public class WeaponAttack : MonoBehaviour
             {
                 enemy.isKinematic = false;
                 Vector2 difference = enemy.transform.position - transform.position;
-                difference = difference.normalized * weapon.knockback;
-                enemy.AddForce(difference, ForceMode2D.Impulse);
+                //difference = difference.normalized * weapon.knockback;
+                //enemy.AddForce(difference, ForceMode2D.Impulse);
                 StartCoroutine(CRT_Knockback(enemy));
+
+                enemy.AddForce(new Vector3(1, 1, 0) * weapon.knockback, ForceMode2D.Impulse);
+
+                if ( _target.GetComponent<Enemy>().isFacingRight)
+                {
+                    Debug.Log("Facing Right");
+                }
             }
         }
     }
