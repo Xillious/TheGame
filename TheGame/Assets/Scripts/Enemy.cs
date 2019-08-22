@@ -13,8 +13,11 @@ public class Enemy : MonoBehaviour
     public float chaseRadius;
     public float health = 5;
     public float attackCooldown;
+    public float aggroRange;
 
     public int baseAttack;
+
+    private int facingDirection = 1;
 
     public bool isGrounded;
     public bool isFacingRight;
@@ -26,21 +29,32 @@ public class Enemy : MonoBehaviour
     public PlayerController playerController;
     public Transform target;
 
+    public Rigidbody2D rb;
+
     public LayerMask whatIsTarget;
 
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
         targetInRange = Physics2D.OverlapCircle(transform.position, 2f, whatIsTarget);
 
+        
+
+       
+        Debug.Log(rb.velocity);
+
+        /*
+        //if player is in range move towards player.
         if (Vector2.Distance(transform.position, target.transform.position) < 2)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
         }
+        */
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -79,7 +93,27 @@ public class Enemy : MonoBehaviour
         }     
     }
 
-   
+    public void CheckMovementDirection()
+    {
+        if (isFacingRight && facingDirection > 0)
+        {
+            Flip();
+        } else if (!isFacingRight && facingDirection < 0)
+        {
+            Flip();
+        }
+    }
+
+    public void Flip()
+    {
+        
+            
+            //facingDirection *= -1;
+            isFacingRight = !isFacingRight;
+            transform.Rotate(0, 180, 0);
+           
+    }
+
 
     private void OnCollisionExit2D(Collision2D other)
     {

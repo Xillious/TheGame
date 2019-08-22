@@ -99,7 +99,7 @@ public class WeaponAttack : MonoBehaviour
         {
             yield return new WaitForSeconds(weapon.knockbackTime);
             enemy.velocity = Vector2.zero;
-            enemy.isKinematic = true;
+            //enemy.isKinematic = true;
         }
     }
 }
