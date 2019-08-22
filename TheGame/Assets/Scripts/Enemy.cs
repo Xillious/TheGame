@@ -11,26 +11,43 @@ public class Enemy : MonoBehaviour
     public float enemyKnockbackTime;
     public float atackRadius;
     public float chaseRadius;
-
     public float health = 5;
+    public float attackCooldown;
+
     public int baseAttack;
 
     public bool isGrounded;
     public bool isFacingRight;
 
+    private bool targetInRange;
+
     public string enemyName;
 
     public PlayerController playerController;
+    public Transform target;
+
+    public LayerMask whatIsTarget;
 
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
     }
 
+    private void Update()
+    {
+        targetInRange = Physics2D.OverlapCircle(transform.position, 2f, whatIsTarget);
+
+        if (Vector2.Distance(transform.position, target.transform.position) < 2)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.CompareTag("Player"))
         {
+            //knockback
             Rigidbody2D player = other.collider.GetComponent<Rigidbody2D>();
             if (player != null)
             {
@@ -54,17 +71,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
- 
-
-    private IEnumerator CRT_EnemyKnockback(Rigidbody2D player)
+    private void GetTarget()
     {
-        if (player != null)
+        if (target != null)
         {
-            yield return new WaitForSeconds(enemyKnockbackTime);
-            player.velocity = Vector2.zero;
-            //playerController.beingKnockedBack = false;
-        }
+            
+        }     
     }
+
+   
 
     private void OnCollisionExit2D(Collision2D other)
     {
@@ -90,5 +105,12 @@ public class Enemy : MonoBehaviour
     private void Death()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmos()
+    {
+        //ground check
+       // Gizmos.DrawWireSphere(transform.position, 2f);
+
     }
 }

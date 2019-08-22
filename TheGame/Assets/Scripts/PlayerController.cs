@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private float dashCheckDistance = 2;                     // check if player is too close to wall (must be higher than dash distance)
     private float dashDistance;                              // how far the player dahshes. (must be less than dashCheckDistance)
     public float dashTime;
+    
 
     private int amountOfJumpsLeft;
     private int facingDirection = 1;

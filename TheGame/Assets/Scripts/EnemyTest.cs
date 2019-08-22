@@ -37,6 +37,8 @@ public class EnemyTest : MonoBehaviour
                      */
                 break;
         }
+
+
     }
 
     public void TakeDamage(float damage)

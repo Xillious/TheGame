@@ -1837,11 +1837,16 @@ MonoBehaviour:
   atackRadius: 0
   chaseRadius: 0
   health: 5
+  attackCooldown: 0
   baseAttack: 0
   isGrounded: 0
   isFacingRight: 0
   enemyName: 
   playerController: {fileID: 0}
+  target: {fileID: 0}
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1391215931
 Rigidbody2D:
   serializedVersion: 4
@@ -9051,7 +9056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87f60b1e28515648ae0c0c54bfba278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 0.01
   attackCharge: 0
   damage: 0
   enemyKnockback: 10
@@ -9059,11 +9064,16 @@ MonoBehaviour:
   atackRadius: 0
   chaseRadius: 0
   health: 100
+  attackCooldown: 0
   baseAttack: 0
   isGrounded: 0
   isFacingRight: 0
   enemyName: Box
   playerController: {fileID: 0}
+  target: {fileID: 776797431}
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2084959524
 GameObject:
   m_ObjectHideFlags: 0

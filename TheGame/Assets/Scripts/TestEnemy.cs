@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class TestEnemy : Enemy
 {
-
+    public enum State
+    {
+        Idle,
+        Aggro,
+        Combat
+    }
    
 
     void Start()
     {
         
     }
-   
-    void Update()
-    {
-        
-    }
 
-    
+   
+
+
 }
