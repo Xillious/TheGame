@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TestEnemy : Enemy
 {
+
     public enum State
     {
         Idle,
@@ -27,10 +28,12 @@ public class TestEnemy : Enemy
                     break;
                 case State.Aggro:
                     //run aggro function
-                    Aggro();
+                    //Aggro();
+                    Combat();
                     break;
                 case State.Combat:
                     //run combat function
+                    //Combat();
                     break;
             }
             yield return new WaitForEndOfFrame();
@@ -41,7 +44,7 @@ public class TestEnemy : Enemy
     {
         //Debug.Log("enemy is Idle");
         //if the trget (player) is in the enemy aggro range;
-        if (Vector2.Distance(transform.position, target.transform.position) < aggroRange)
+        if (Vector2.Distance(transform.position, target.transform.position) < chaseRadius)
         {
             enemyState = State.Aggro;
         }
@@ -54,9 +57,9 @@ public class TestEnemy : Enemy
         rb.MovePosition(transform.position + transform.right * moveSpeed * Time.deltaTime);
         //rb.MovePosition(transform.position + transform.position * moveSpeed * Time.deltaTime);
         //rb.MovePosition(transform.position + transform.localScale + new Vector3 (0, 0, 0) * moveSpeed * Time.deltaTime);
-     
 
-        if (Vector2.Distance(transform.position, target.transform.position) > aggroRange)
+
+        if (Vector2.Distance(transform.position, target.transform.position) > chaseRadius)
         {
             enemyState = State.Idle;
         }
@@ -64,20 +67,61 @@ public class TestEnemy : Enemy
 
     private void Combat()
     {
-
+        GetComponentInChildren<EnemyAttack>().SwingWeapon();
+        //other.collider.GetComponent<PlayerController>().StartKnockback(enemyKnockbackTime);
     }
 
-
-
+   
+   
 
     private void Update()
     {
 
-        CheckMovementDirection();
+        if (isTouchingWall)
+        {
+            Debug.Log("Near Wall");
+            Flip();
+        }
+        else if (!isTouchingWall)
+        {
+
+        }
+
+
+
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        Debug.Log(enemyState);
+
+        /*
+        if (target != null)
+        {
+            transform.LookAt(target);
+        }
+
+        /*
+        transform.LookAt(target.transform, transform.position);
+
+
+        /*
+
+        if (transform.position != target.transform.position)
+        {
+
+        }
+
+        Debug.Log("");
+
+        Vector3 distance = target.position - transform.position;
+
+        // if (Physics2D.Raycast(transform.position, transform.right * -1, chaseRadius, 1))
+
+        CheckSurroundings();
+        //CheckMovementDirection();
 
         //Debug.Log(rb.transform.right);
 
-        
+
         if (Input.GetButtonDown("Attack"))
         {
             Flip();
@@ -99,4 +143,16 @@ public class TestEnemy : Enemy
     }
 
 
+    private void OnDrawGizmos()
+    {
+
+        // Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        //Gizmos.DrawLine(transform.position, wallCheckDistance);
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + wallCheckDistance, transform.position.z));
+
+    }
+
 }
+
+
+

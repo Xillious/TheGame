@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private float playerHealth;
     private float movementInputDirection;
     private float moveSpeed;                                 // player movement speed
     private float jumpForce;                                 // how hight the player jumps
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;                                // is the player currnetly on the ground
     private bool isTouchingWall;                            // is the player touching the wall
     private bool isWallSliding;                             // is the player currently wall sliding
-    public bool canJump;                                   // can the player jump
+    public bool canJump;                                    // can the player jump
     private bool isRunning;                                 // is the player running
     private bool isSliding;                                 // is the player sliding (Not in i dont think)
     public bool isCrouching;                                // is the player currently crouching.
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     public bool hasWeapon = false;                          // has the player currently got a weapon.
     public bool weaponInPickupRange = false;                // is there a weapon in picup range?
 
-    public int int_amountOfJumps = 1;                      // amount of jumps -_-
+    public int int_amountOfJumps = 1;                       // amount of jumps -_-
 
     public float int_moveSpeed;
     public float int_jumpForce;
@@ -397,6 +398,14 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(0, 180, 0);
            // GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
         }  
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (playerHealth <= 0)
+        {
+            //die
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D other)

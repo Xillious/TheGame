@@ -4,58 +4,46 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public string enemyName;
+
     public float moveSpeed;
-    public float attackCharge;
+    public float health = 5;
     public float damage;
     public float enemyKnockback;
     public float enemyKnockbackTime;
     public float atackRadius;
     public float chaseRadius;
-    public float health = 5;
+    public float attackCharge;
     public float attackCooldown;
-    public float aggroRange;
-
-    public int baseAttack;
+    public float wallCheckDistance;
 
     private int facingDirection = 1;
 
     public bool isGrounded;
     public bool isFacingRight;
+    public bool isTouchingWall;
+    public bool backToPlayer;
 
     private bool targetInRange;
 
-    public string enemyName;
-
-    public PlayerController playerController;
     public Transform target;
+    public Transform wallCheck;
 
     public Rigidbody2D rb;
 
-    public LayerMask whatIsTarget;
+    public GameObject player;
+
+    public LayerMask whatIsGround;
+
+    public LayerMask playerLayer;
+
 
     private void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
+
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        targetInRange = Physics2D.OverlapCircle(transform.position, 2f, whatIsTarget);
-
-        
-
-       
-        Debug.Log(rb.velocity);
-
-        /*
-        //if player is in range move towards player.
-        if (Vector2.Distance(transform.position, target.transform.position) < 2)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
-        }
-        */
-    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -79,18 +67,10 @@ public class Enemy : MonoBehaviour
                 {
                     player.AddForce(new Vector3(-1, 1, 0) * enemyKnockback, ForceMode2D.Impulse);
                 }
-                
-            }
-         
-        }
-    }
 
-    private void GetTarget()
-    {
-        if (target != null)
-        {
-            
-        }     
+            }
+
+        }
     }
 
     public void CheckMovementDirection()
@@ -98,38 +78,32 @@ public class Enemy : MonoBehaviour
         if (isFacingRight && facingDirection > 0)
         {
             Flip();
-        } else if (!isFacingRight && facingDirection < 0)
+        }
+        else if (!isFacingRight && facingDirection < 0)
         {
             Flip();
         }
     }
 
+    public void CheckSurroundings()
+    {
+        //isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
+        isTouchingWall = Physics2D.Raycast(transform.position, transform.right, wallCheckDistance, whatIsGround);
+        backToPlayer = Physics2D.Raycast(transform.position, transform.right * 180, chaseRadius, playerLayer);
+    }
+
     public void Flip()
     {
-        
-            
-            //facingDirection *= -1;
-            isFacingRight = !isFacingRight;
-            transform.Rotate(0, 180, 0);
-           
-    }
-
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-       
+        //facingDirection *= -1;
+        isFacingRight = !isFacingRight;
+        transform.Rotate(0, 180, 0);
     }
 
     public void TakeDamage(float damage)
     {
-        //hitpoints -= damage
-        //check if dead.
+        //take damage
         health -= damage;
+        //check if dead
         if (health <= 0)
         {
             Death();
@@ -141,10 +115,10 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmos()
-    {
-        //ground check
-       // Gizmos.DrawWireSphere(transform.position, 2f);
 
-    }
 }
+
+
+
+
+

@@ -50,16 +50,7 @@ public class WeaponAttack : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        /*
-        if (other.gameObject.tag == "Enemy" && !hitUnits.Contains(other.gameObject))
-        {
-            hitUnits.Add(other.gameObject);
-            Hit(other.gameObject);
-        }
-
-
-        */
-
+        
         if (!hitUnits.Contains(other.gameObject))
         {
             hitUnits.Add(other.gameObject);
@@ -72,9 +63,10 @@ public class WeaponAttack : MonoBehaviour
     {
         if (_target.gameObject.layer == 10)
         {
-            Debug.Log("HIT ENEMY");
+            //deal damage
             _target.GetComponent<Enemy>().TakeDamage(weapon.damage);
 
+            //knockback enemy
             Rigidbody2D enemy = _target.GetComponent<Rigidbody2D>();
             if (enemy != null)
             {
@@ -84,11 +76,13 @@ public class WeaponAttack : MonoBehaviour
                 //enemy.AddForce(difference, ForceMode2D.Impulse);
                 StartCoroutine(CRT_Knockback(enemy));
 
-                enemy.AddForce(new Vector3(1, 1, 0) * weapon.knockback, ForceMode2D.Impulse);
-
+                //knockback direction
                 if ( _target.GetComponent<Enemy>().isFacingRight)
                 {
-                    Debug.Log("Facing Right");
+                    enemy.AddForce(new Vector3(1, 1, 0) * weapon.knockback, ForceMode2D.Impulse);
+                } else if (!_target.GetComponent<Enemy>().isFacingRight)
+                {
+                    enemy.AddForce(new Vector3(-1, 1, 0) * weapon.knockback, ForceMode2D.Impulse);
                 }
             }
         }

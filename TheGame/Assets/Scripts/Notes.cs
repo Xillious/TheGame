@@ -4,7 +4,22 @@ using UnityEngine;
 
 /*
 
+
+    - dont worry about flipping the player for now
+    - work on the rest of the enemy AI
+    - build the first level
+    - look at how to do the loot system? - is there a loot system?
+    - 
+
+
+
     flip the enemy
+
+
+
+
+
+
         rb.velocity doesnt change apparently?
         the flip works just need to figure out when to apply it.
 
@@ -88,5 +103,12 @@ using UnityEngine;
     gets bigger as you get more kills 
 
     enemy walking on a sine wave.
+
+
+
+    CTRL + T - search for a lin in visual studio.
+
+
+    https://forum.unity.com/threads/c-proper-state-machine.380612/
 
 */
