@@ -5,19 +5,16 @@ using UnityEngine;
 /*
 
 
+    - add the platform ledge so the player can pull themself up.
+
+
+
+
     - dont worry about flipping the player for now
     - work on the rest of the enemy AI
     - build the first level
     - look at how to do the loot system? - is there a loot system?
-    - 
-
-
-
-    flip the enemy
-
-
-
-
+   
 
 
         rb.velocity doesnt change apparently?

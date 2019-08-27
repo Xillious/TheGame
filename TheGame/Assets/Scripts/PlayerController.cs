@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     private float dashCheckDistance = 2;                     // check if player is too close to wall (must be higher than dash distance)
     private float dashDistance;                              // how far the player dahshes. (must be less than dashCheckDistance)
     public float dashTime;
-    
+    private float jumpApexMin = -2f;
+    private float jumpApexMax = 1;
 
     private int amountOfJumpsLeft;
     private int facingDirection = 1;
@@ -104,6 +105,11 @@ public class PlayerController : MonoBehaviour
         UpdateAnimations();
         CheckIfCanJump();
         CheckIfWallSliding();
+
+       // Debug.Log(rb.velocity);
+       
+
+        //Debug.Log(rb.velocity);
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle")) {
             if (idling == false)
@@ -278,8 +284,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Dash") && !tooCloseToDash && beingKnockedBack == false)
         {
             // Dash(dashDistance);
-            StartDash(50f);
-            Debug.Log("dashing");
+            //StartDash(50f);
+            //Debug.Log("dashing");
         }
 
         if (Input.GetButtonDown("Select"))
@@ -290,6 +296,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Start"))
         {
             Debug.Log("Start");
+        }
+
+        if (Input.GetButtonDown("Dash") && JumpApex() && rb.velocity.y > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * -50f);
+            Debug.Log("SDFSADFASFD");
         }
     }
 
@@ -398,6 +410,23 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(0, 180, 0);
            // GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
         }  
+    }
+
+    private void Apex()
+    {
+        if (!isGrounded && rb.velocity.y > jumpApexMin && rb.velocity.y < jumpApexMax)
+        {
+            Debug.Log("Jump Apex");
+        }
+    }
+
+    private bool JumpApex()
+    {
+
+        if (!isGrounded && rb.velocity.y > jumpApexMin && rb.velocity.y < jumpApexMax)
+            return true;
+        else
+            return false;
     }
 
     public void TakeDamage(float damage)

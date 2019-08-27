@@ -5,11 +5,16 @@ using UnityEngine;
 public class TestEnemy : Enemy
 {
 
+    Vector3 positionTest;
+
+    private float test;
+
     public enum State
     {
         Idle,
         Aggro,
-        Combat
+        Combat,
+        Knockback
     }
 
     private State enemyState;
@@ -28,12 +33,15 @@ public class TestEnemy : Enemy
                     break;
                 case State.Aggro:
                     //run aggro function
-                    //Aggro();
-                    Combat();
+                    Aggro();
+                   
                     break;
                 case State.Combat:
                     //run combat function
-                    //Combat();
+                    Combat();
+                    break;
+                case State.Knockback:
+                    Knockback();
                     break;
             }
             yield return new WaitForEndOfFrame();
@@ -47,6 +55,7 @@ public class TestEnemy : Enemy
         if (Vector2.Distance(transform.position, target.transform.position) < chaseRadius)
         {
             enemyState = State.Aggro;
+            KnockbackCheck();
         }
     }
 
@@ -58,24 +67,52 @@ public class TestEnemy : Enemy
         //rb.MovePosition(transform.position + transform.position * moveSpeed * Time.deltaTime);
         //rb.MovePosition(transform.position + transform.localScale + new Vector3 (0, 0, 0) * moveSpeed * Time.deltaTime);
 
+        KnockbackCheck();
 
-        if (Vector2.Distance(transform.position, target.transform.position) > chaseRadius)
+        if (PlayerRangeCheck(chaseRadius))
+        {
+            enemyState = State.Idle;
+        }
+
+        if(PlayerRangeCheck(attackRadius))
+        {
+            enemyState = State.Combat;
+        }
+
+    }
+
+    private void Combat()
+    {
+
+        KnockbackCheck();
+        //GetComponentInChildren<EnemyAttack>().SwingWeapon();
+        //other.collider.GetComponent<PlayerController>().StartKnockback(enemyKnockbackTime);
+        if (!PlayerRangeCheck(attackRadius))
         {
             enemyState = State.Idle;
         }
     }
 
-    private void Combat()
+    private void Knockback()
     {
-        GetComponentInChildren<EnemyAttack>().SwingWeapon();
-        //other.collider.GetComponent<PlayerController>().StartKnockback(enemyKnockbackTime);
+        //if the enemy is stationary
+        if (rb.velocity.x == 0)
+        {
+            //change the 0 to recover quicker i think?.
+            enemyState = State.Idle;
+        }
     }
 
-   
-   
+    private void FixedUpdate()
+    {
+        //Debug.Log(enemyState);
+        //Debug.Log(rb.velocity.x);
+    }
 
     private void Update()
     {
+
+        
 
         if (isTouchingWall)
         {
@@ -87,66 +124,48 @@ public class TestEnemy : Enemy
 
         }
 
-
-
         float distance = Vector3.Distance(transform.position, target.position);
 
-        Debug.Log(enemyState);
+        //Debug.Log(enemyState);
 
-        /*
-        if (target != null)
+        if (PlayerRangeCheck(chaseRadius))
         {
-            transform.LookAt(target);
+
+            if ((transform.position.x > target.transform.position.x) && !isFacingRight)
+            {
+                
+                Flip();
+            }
+            else if ((transform.position.x < target.transform.position.x) && isFacingRight)
+            {
+               
+                Flip();
+            }
         }
 
-        /*
-        transform.LookAt(target.transform, transform.position);
-
-
-        /*
-
-        if (transform.position != target.transform.position)
-        {
-
-        }
-
-        Debug.Log("");
-
-        Vector3 distance = target.position - transform.position;
-
-        // if (Physics2D.Raycast(transform.position, transform.right * -1, chaseRadius, 1))
-
-        CheckSurroundings();
-        //CheckMovementDirection();
-
-        //Debug.Log(rb.transform.right);
-
-
-        if (Input.GetButtonDown("Attack"))
-        {
-            Flip();
-            Debug.Log("Flip Enemy");
-        }
-        /*
-        
-        if (Vector2.Distance(transform.position, target.transform.position) < 2)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
-            enemyState = State.Aggro;
-        } else
-        {
-            enemyState = State.Idle;
-        }
-        */
-
-        // Debug.Log(enemyState);
     }
 
+    // is the player in the range?
+    private bool PlayerRangeCheck(float distance)
+    {
+        if (Vector2.Distance(transform.position, target.transform.position) < distance)
+            return true;
+        else
+            return false;
+    }
+
+    private void KnockbackCheck()
+    {
+       if (rb.velocity.x != 0)
+        {
+            enemyState = State.Knockback;
+        }
+    }
 
     private void OnDrawGizmos()
     {
 
-        // Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        //Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
         //Gizmos.DrawLine(transform.position, wallCheckDistance);
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + wallCheckDistance, transform.position.z));
 

@@ -72,10 +72,7 @@ public class WeaponAttack : MonoBehaviour
             {
                 enemy.isKinematic = false;
                 Vector2 difference = enemy.transform.position - transform.position;
-                //difference = difference.normalized * weapon.knockback;
-                //enemy.AddForce(difference, ForceMode2D.Impulse);
-                StartCoroutine(CRT_Knockback(enemy));
-
+                
                 //knockback direction
                 if ( _target.GetComponent<Enemy>().isFacingRight)
                 {
@@ -87,13 +84,5 @@ public class WeaponAttack : MonoBehaviour
             }
         }
     }
-        private IEnumerator CRT_Knockback(Rigidbody2D enemy)
-    {
-        if (enemy != null)
-        {
-            yield return new WaitForSeconds(weapon.knockbackTime);
-            enemy.velocity = Vector2.zero;
-            //enemy.isKinematic = true;
-        }
-    }
+       
 }

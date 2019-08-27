@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     public float damage;
     public float enemyKnockback;
     public float enemyKnockbackTime;
-    public float atackRadius;
+    public float attackRadius;
     public float chaseRadius;
     public float attackCharge;
     public float attackCooldown;
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public bool isTouchingWall;
     public bool backToPlayer;
 
-    private bool targetInRange;
+    public bool targetInRange;
 
     public Transform target;
     public Transform wallCheck;
