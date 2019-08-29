@@ -9,7 +9,7 @@ public class TestEnemy : Enemy
 
     private float test;
 
-    public enum State
+    public enum EnemyAIState
     {
         Idle,
         Aggro,
@@ -17,30 +17,63 @@ public class TestEnemy : Enemy
         Knockback
     }
 
-    private State enemyState;
+    private bool wandering = false;
+    private Vector3 wanderDestiaion;
+
+    private EnemyAIState enemyState;
+
+    public void ChangeState (EnemyAIState newState)
+    {
+        enemyState = newState;
+
+        if (newState == EnemyAIState.Idle)
+        {
+            // pick a wander desination
+            float dist = Random.Range(wanderRangeMin, wanderRangeMax);
+
+            // pick a side
+            if (Random.value > 0.5f)
+            {
+                // face left
+                if (isFacingRight)
+                    Flip();
+                dist = -dist;
+            } else {
+                // going right
+                if (!isFacingRight)
+                    Flip();
+            }
+            wanderDestiaion = transform.position + Vector3.right * dist;
+            wandering = true;
+
+            Debug.Log("wandering to " + wanderDestiaion.ToString());
+        }
+    }
 
     IEnumerator Start()
     {
-        enemyState = State.Idle;
+        ChangeState(EnemyAIState.Idle);
 
         while (true)
         {
             switch (enemyState)
             {
-                case State.Idle:
+                case EnemyAIState.Idle:
                     //run idle function
-                    Idle();
+                    //Idle();
+                    if (isGrounded)
+                        Wander();
                     break;
-                case State.Aggro:
+                case EnemyAIState.Aggro:
                     //run aggro function
-                    Aggro();
-                   
+                     Aggro();
+                    
                     break;
-                case State.Combat:
+                case EnemyAIState.Combat:
                     //run combat function
                     Combat();
                     break;
-                case State.Knockback:
+                case EnemyAIState.Knockback:
                     Knockback();
                     break;
             }
@@ -50,33 +83,31 @@ public class TestEnemy : Enemy
 
     private void Idle()
     {
-        //Debug.Log("enemy is Idle");
+       
         //if the trget (player) is in the enemy aggro range;
         if (Vector2.Distance(transform.position, target.transform.position) < chaseRadius)
         {
-            enemyState = State.Aggro;
+            ChangeState(EnemyAIState.Aggro);
             KnockbackCheck();
         }
     }
 
     private void Aggro()
     {
-        // transform.position = Vector2.MoveTowards(transform.position, target.transform.position, moveSpeed);
-        //rb.velocity = new Vector2(moveSpeed * 1, rb.velocity.y);
+        
+        if (isGrounded)
         rb.MovePosition(transform.position + transform.right * moveSpeed * Time.deltaTime);
-        //rb.MovePosition(transform.position + transform.position * moveSpeed * Time.deltaTime);
-        //rb.MovePosition(transform.position + transform.localScale + new Vector3 (0, 0, 0) * moveSpeed * Time.deltaTime);
-
+        
         KnockbackCheck();
 
         if (PlayerRangeCheck(chaseRadius))
         {
-            enemyState = State.Idle;
+            enemyState = EnemyAIState.Idle;
         }
 
         if(PlayerRangeCheck(attackRadius))
         {
-            enemyState = State.Combat;
+            enemyState = EnemyAIState.Combat;
         }
 
     }
@@ -85,11 +116,10 @@ public class TestEnemy : Enemy
     {
 
         KnockbackCheck();
-        //GetComponentInChildren<EnemyAttack>().SwingWeapon();
-        //other.collider.GetComponent<PlayerController>().StartKnockback(enemyKnockbackTime);
+        
         if (!PlayerRangeCheck(attackRadius))
         {
-            enemyState = State.Idle;
+            enemyState = EnemyAIState.Idle;
         }
     }
 
@@ -99,44 +129,60 @@ public class TestEnemy : Enemy
         if (rb.velocity.x == 0)
         {
             //change the 0 to recover quicker i think?.
-            enemyState = State.Idle;
+            enemyState = EnemyAIState.Idle;
         }
+    }
+
+    private void Wander()
+    {
+        if (wandering)
+        {
+            // move forward
+            rb.MovePosition(transform.position + transform.right * moveSpeed * Time.deltaTime);
+
+            // have we reached the wander destination?
+            if (Vector3.Distance(transform.position, wanderDestiaion) < 0.1f)
+            {
+                // reached destination - wait a while then wander again
+                Debug.Log("reached destination");
+                wandering = false;
+                StartCoroutine(CRT_Pause());
+            }
+        }
+        
+    }
+
+    private IEnumerator CRT_Pause()
+    {
+        float pause = Random.Range(0, pauseTime);
+        yield return new WaitForSecondsRealtime(pause);
+        ChangeState(EnemyAIState.Idle);
     }
 
     private void FixedUpdate()
     {
-        //Debug.Log(enemyState);
-        //Debug.Log(rb.velocity.x);
+        CheckSurroundings();
     }
 
     private void Update()
     {
 
-        
-
         if (isTouchingWall)
         {
-            Debug.Log("Near Wall");
-            Flip();
+            ChangeState(EnemyAIState.Idle);
         }
-        else if (!isTouchingWall)
-        {
+        
 
-        }
-
-        float distance = Vector3.Distance(transform.position, target.position);
-
-        //Debug.Log(enemyState);
 
         if (PlayerRangeCheck(chaseRadius))
         {
 
-            if ((transform.position.x > target.transform.position.x) && !isFacingRight)
+            if ((transform.position.x > target.transform.position.x) && isFacingRight)
             {
                 
                 Flip();
             }
-            else if ((transform.position.x < target.transform.position.x) && isFacingRight)
+            else if ((transform.position.x < target.transform.position.x) && !isFacingRight)
             {
                
                 Flip();
@@ -148,7 +194,7 @@ public class TestEnemy : Enemy
     // is the player in the range?
     private bool PlayerRangeCheck(float distance)
     {
-        if (Vector2.Distance(transform.position, target.transform.position) < distance)
+        if (Vector3.Distance(transform.position, target.transform.position) < distance)
             return true;
         else
             return false;
@@ -158,8 +204,13 @@ public class TestEnemy : Enemy
     {
        if (rb.velocity.x != 0)
         {
-            enemyState = State.Knockback;
+            enemyState = EnemyAIState.Knockback;
         }
+    }
+
+    private void EnemyWander(float min, float max)
+    {
+        new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     private void OnDrawGizmos()
@@ -168,7 +219,7 @@ public class TestEnemy : Enemy
         //Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
         //Gizmos.DrawLine(transform.position, wallCheckDistance);
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + wallCheckDistance, transform.position.z));
-
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 
 }

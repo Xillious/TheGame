@@ -212,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.36, y: 2.75, z: 0}
+  m_LocalPosition: {x: -5.02, y: 3.19, z: 0}
   m_LocalScale: {x: 2.5859, y: 1.0669, z: 1}
   m_Children:
   - {fileID: 1730769974}
@@ -6294,7 +6294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackBuildup: 0
-  attackDuration: 0.4
+  attackDuration: 0.7
   knockback: 200
   knockbackTime: 1
   thePlayer: {fileID: 0}
@@ -6382,7 +6382,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281538926}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.63, y: 5.6, z: 0.06505658}
+  m_LocalPosition: {x: -5.13, y: 4.42, z: 0.06505658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2084959525}
@@ -6509,7 +6509,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366847143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.02, y: 1.92, z: 0}
+  m_LocalPosition: {x: 0.53, y: 2.28, z: 0}
   m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6906,6 +6906,7 @@ MonoBehaviour:
   dashTime: 2
   canJump: 0
   isCrouching: 0
+  isAttacking: 0
   beingKnockedBack: 0
   isFacingRight: 1
   hasWeapon: 0
@@ -6996,7 +6997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776797426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.72, y: 5.11, z: 0}
+  m_LocalPosition: {x: 10.97, y: 0.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1596979981}
@@ -7024,6 +7025,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &928825008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 928825009}
+  m_Layer: 10
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &928825009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928825008}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.213, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1996594794}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &995566988
 GameObject:
   m_ObjectHideFlags: 0
@@ -7124,7 +7155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995566988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.54, y: -5.51, z: 0}
+  m_LocalPosition: {x: 1.14, y: -5.89, z: 0}
   m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7275,7 +7306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085235124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.52, y: -3.84, z: 0}
+  m_LocalPosition: {x: 5.75, y: -4, z: 0}
   m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7681,6 +7712,10 @@ MonoBehaviour:
   attackCharge: 0
   attackCooldown: 0
   wallCheckDistance: 0
+  wanderRangeMin: 0
+  wanderRangeMax: 0
+  groundCheckRadius: 0
+  pauseTime: 0
   isGrounded: 0
   isFacingRight: 0
   isTouchingWall: 0
@@ -7688,6 +7723,7 @@ MonoBehaviour:
   targetInRange: 0
   target: {fileID: 0}
   wallCheck: {fileID: 0}
+  groundCheck: {fileID: 0}
   rb: {fileID: 0}
   player: {fileID: 0}
   whatIsGround:
@@ -7696,6 +7732,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
+  newPosition: {x: 0, y: 0}
 --- !u!50 &1391215931
 Rigidbody2D:
   serializedVersion: 4
@@ -16554,7 +16591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836042106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.51, y: 0.14, z: 0}
+  m_LocalPosition: {x: 6.09, y: 0.77, z: 0}
   m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16660,7 +16697,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926568161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.79, y: 4.77, z: 0}
+  m_LocalPosition: {x: 4.68, y: 5.13, z: 0}
   m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16768,11 +16805,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996594791}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.39, y: -2.23, z: -0.041394465}
+  m_LocalPosition: {x: -5.04, y: -4.33, z: -0.041394465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 96897962}
   - {fileID: 1309993091}
+  - {fileID: 928825009}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16820,13 +16858,18 @@ MonoBehaviour:
   attackCharge: 0
   attackCooldown: 0
   wallCheckDistance: 0.4
+  wanderRangeMin: 2
+  wanderRangeMax: 5
+  groundCheckRadius: 0.2
+  pauseTime: 3
   isGrounded: 0
-  isFacingRight: 0
+  isFacingRight: 1
   isTouchingWall: 0
   backToPlayer: 0
   targetInRange: 0
   target: {fileID: 776797431}
   wallCheck: {fileID: 96897962}
+  groundCheck: {fileID: 928825009}
   rb: {fileID: 1996594795}
   player: {fileID: 0}
   whatIsGround:
@@ -16835,6 +16878,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
+  newPosition: {x: 0, y: 0}
 --- !u!1 &2084959524
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,11 @@ using UnityEngine;
 
 
 
+
+
+
+
+
     - dont worry about flipping the player for now
     - work on the rest of the enemy AI
     - build the first level

@@ -41,20 +41,6 @@ public class Sword : Weapon
         weaponAttack.SwingWeapon();
     }
 
-    /*
-    public void Attack()
-    {
-   
-        // //animation 
-        // //audio
-        
-        if (attacking != null)
-            StopCoroutine(attacking);
-
-        attacking = StartCoroutine(CRT_Attack());
-    }
-    */
-
     public void Pickup()
     {   
         SetParent(thePlayer.weaponPosition);
@@ -70,32 +56,6 @@ public class Sword : Weapon
         thePlayer.myWeapon = null;
     }
 
-    /*
-    private IEnumerator CRT_Attack()
-    {
-        hitUnits.Clear();
-        yield return new WaitForSecondsRealtime(attackBuildup);
-        hitBox.enabled = true;
-        yield return new WaitForSecondsRealtime(attackDuration);
-        hitBox.enabled = false;
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Enemy" && !hitUnits.Contains(other.gameObject))
-        {
-            hitUnits.Add(other.gameObject);
-            Hit(other.gameObject);
-        }
-    }
-
-    //damage enemy
-    private void Hit(GameObject _target)
-    {
-        Debug.Log("HIT ENEMY");
-    }
-    */
-
     private void SetParent(GameObject newParent)
     {   
         transform.SetParent(newParent.transform);
@@ -109,15 +69,7 @@ public class Sword : Weapon
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        /*
-        if (other.CompareTag("Player"))
-        {
-            canPickup = true;
-            thePlayer.weaponInRange = this.gameObject;
-            icon.enabled = true;
-        }
-        */
-
+ 
         if (other.gameObject.layer == 9)
         {
             canPickup = true;
@@ -128,15 +80,7 @@ public class Sword : Weapon
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        /*
-        if (other.CompareTag("Player"))
-        {
-            canPickup = false;
-            thePlayer.weaponInRange = null;
-            icon.enabled = false;
-        } 
-        */
-
+       
         if (other.gameObject.layer == 9)
         {
             canPickup = false;

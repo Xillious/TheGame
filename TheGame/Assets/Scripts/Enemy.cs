@@ -16,6 +16,10 @@ public class Enemy : MonoBehaviour
     public float attackCharge;
     public float attackCooldown;
     public float wallCheckDistance;
+    public float wanderRangeMin;
+    public float wanderRangeMax;
+    public float groundCheckRadius;
+    public float pauseTime;
 
     private int facingDirection = 1;
 
@@ -28,6 +32,7 @@ public class Enemy : MonoBehaviour
 
     public Transform target;
     public Transform wallCheck;
+    public Transform groundCheck;
 
     public Rigidbody2D rb;
 
@@ -37,6 +42,7 @@ public class Enemy : MonoBehaviour
 
     public LayerMask playerLayer;
 
+    public Vector2 newPosition;
 
     private void Start()
     {
@@ -44,6 +50,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+   
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -87,6 +94,7 @@ public class Enemy : MonoBehaviour
 
     public void CheckSurroundings()
     {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         //isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
         isTouchingWall = Physics2D.Raycast(transform.position, transform.right, wallCheckDistance, whatIsGround);
         backToPlayer = Physics2D.Raycast(transform.position, transform.right * 180, chaseRadius, playerLayer);

@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     private bool isRunning;                                 // is the player running
     private bool isSliding;                                 // is the player sliding (Not in i dont think)
     public bool isCrouching;                                // is the player currently crouching.
-    private bool isAttacking;                               // is the player currently attacking
+    public bool isAttacking;                               // is the player currently attacking
     private bool tooCloseToDash;                            // player is too close to a wall to dash (so they dont clip through the wall)
     private bool isTouchingPlatform;
     private bool isTouchingEnemy;
@@ -107,11 +107,9 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckIfWallSliding();
 
-        // Debug.Log(rb.velocity);
-
-        //Debug.Log(inputDirectionY);
-
         //Debug.Log(rb.velocity);
+
+        
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle")) {
             if (idling == false)
@@ -303,7 +301,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputDirectionY < 0 && JumpApex() && rb.velocity.y > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * -20f);
+            rb.velocity = new Vector2(rb.velocity.x, -20f);
         }
     }
 
@@ -404,7 +402,7 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        if (!isWallSliding)
+        if (!isWallSliding && !isAttacking)
         {
             // if its inside here the player cant just let go of the wall
             facingDirection *= -1;
@@ -425,7 +423,7 @@ public class PlayerController : MonoBehaviour
     private bool JumpApex()
     {
 
-        if (!isGrounded && rb.velocity.y > jumpApexMin && rb.velocity.y < jumpApexMax)
+        if (!isGrounded && Mathf.Abs(rb.velocity.y) > jumpApexMin && Mathf.Abs(rb.velocity.y) < jumpApexMax)
             return true;
         else
             return false;

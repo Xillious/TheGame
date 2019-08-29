@@ -14,11 +14,14 @@ public class WeaponAttack : MonoBehaviour
 
     private SpriteRenderer hitboxSpriteTest;
 
+    private PlayerController playerController;
+
     void Start()
     {
         hitBox = GetComponent<BoxCollider2D>();
         weapon = FindObjectOfType<Weapon>();
         hitboxSpriteTest = GetComponent<SpriteRenderer>();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     public void SwingWeapon()
@@ -40,11 +43,13 @@ public class WeaponAttack : MonoBehaviour
         {
             hitBox.enabled = true;
             hitboxSpriteTest.enabled = true;
+            playerController.isAttacking = true;
         }
         yield return new WaitForSecondsRealtime(weapon.attackDuration);
         {
             hitBox.enabled = false;
             hitboxSpriteTest.enabled = false;
+            playerController.isAttacking = false;
         }
     }
 
