@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private float playerHealth;
     private float movementInputDirection;
+    private float inputDirectionY;
     private float moveSpeed;                                 // player movement speed
     private float jumpForce;                                 // how hight the player jumps
     private float groundCheckRadius;                         // the radius of the circle that cheks for ground
@@ -106,8 +107,9 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckIfWallSliding();
 
-       // Debug.Log(rb.velocity);
-       
+        // Debug.Log(rb.velocity);
+
+        //Debug.Log(inputDirectionY);
 
         //Debug.Log(rb.velocity);
 
@@ -236,6 +238,7 @@ public class PlayerController : MonoBehaviour
     private void CheckInput()
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
+        inputDirectionY = Input.GetAxisRaw("Vertical");
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -283,7 +286,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Dash") && !tooCloseToDash && beingKnockedBack == false)
         {
-            // Dash(dashDistance);
+             Dash(dashDistance);
             //StartDash(50f);
             //Debug.Log("dashing");
         }
@@ -298,10 +301,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Start");
         }
 
-        if (Input.GetButtonDown("Dash") && JumpApex() && rb.velocity.y > 0)
+        if (inputDirectionY < 0 && JumpApex() && rb.velocity.y > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * -50f);
-            Debug.Log("SDFSADFASFD");
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * -20f);
         }
     }
 
