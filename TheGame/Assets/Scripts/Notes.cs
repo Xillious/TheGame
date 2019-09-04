@@ -5,16 +5,26 @@ using UnityEngine;
 /*
 
 
-    - add the platform ledge so the player can pull themself up.
+   - make enemy prefab
+   - test the scene with multiple enemies
+   - make player prefab
+
+   - make a health bar for the enemies
+   
+
+   - the enemy needs to detect the players transform when the player moves in range
+
+
+
+    - make a health bar for the player
+        - attatch it to the player
+        - make it smoother
 
 
 
 
 
-
-
-
-
+     - add the platform ledge so the player can pull themself up.
     - dont worry about flipping the player for now
     - work on the rest of the enemy AI
     - build the first level
