@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField]
+    private float lerpSpeed;
 
     Image healthBar;
     public static float health;
@@ -31,7 +33,9 @@ public class HealthBar : MonoBehaviour
             
         }
 
-            healthBar.fillAmount = health / maxHealth;
+        //healthBar.fillAmount = health / maxHealth;
+        //healthBar.fillAmount = MapHealth(health, maxHealth);
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, MapHealth(health, maxHealth), lerpSpeed * Time.deltaTime);
 
 
         if (health > maxHealth)
@@ -47,5 +51,10 @@ public class HealthBar : MonoBehaviour
         //set current health
         //gain health 1 at a time until you have gained the set amount
 
+    }
+
+    private float MapHealth(float currentHealth, float maxHealth)
+    {
+        return currentHealth / maxHealth;
     }
 }

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 
     public float moveSpeed;
     public float health = 5;
+    public float maxHealth = 100;
     public float damage;
     public float enemyKnockback;
     public float enemyKnockbackTime;
@@ -34,6 +35,8 @@ public class Enemy : MonoBehaviour
     public Transform wallCheck;
     public Transform groundCheck;
 
+    public GameObject thePlayer;
+
     public Rigidbody2D rb;
 
     //public GameObject player;
@@ -47,11 +50,12 @@ public class Enemy : MonoBehaviour
     {
 
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     private void Update()
     {
-        
+        target.transform.position = thePlayer.transform.position;
     }
 
 
@@ -134,6 +138,14 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // is the player in the range?
+    public bool PlayerRangeCheck(float distance)
+    {
+        if (Vector3.Distance(transform.position, target.transform.position) < distance)
+            return true;
+        else
+            return false;
+    }
 
 }
 

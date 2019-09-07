@@ -15,6 +15,7 @@ public class TestEnemy : Enemy
         Wander,
         Aggro,
         Combat,
+        Dead,
         Knockback
     }
 
@@ -51,6 +52,11 @@ public class TestEnemy : Enemy
                 case EnemyAIState.Combat:
                     //run combat function
                     Combat();
+                    break;
+
+                case EnemyAIState.Dead:
+                    //enemy dead
+
                     break;
 
                 case EnemyAIState.Knockback:
@@ -203,6 +209,7 @@ public class TestEnemy : Enemy
 
     }
 
+    /*
     // is the player in the range?
     private bool PlayerRangeCheck(float distance)
     {
@@ -211,6 +218,7 @@ public class TestEnemy : Enemy
         else
             return false;
     }
+    */
 
     private void KnockbackCheck()
     {

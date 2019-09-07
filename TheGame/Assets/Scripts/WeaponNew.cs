@@ -27,10 +27,7 @@ public class WeaponNew : MonoBehaviour
     {
         thePlayer = FindObjectOfType<PlayerController>();
         hitBox = GetComponent<BoxCollider2D>();
-        //weaponAttack = FindObjectOfType<WeaponAttack>();
-        weaponAttack = GetComponentInChildren<Attack>();
-        //weaponIcon = GameObject.Find("Weapon Icon");
-        
+        weaponAttack = GetComponentInChildren<Attack>();  
         icon = weaponIcon.GetComponent<SpriteRenderer>();
     }
 
