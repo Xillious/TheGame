@@ -35,10 +35,10 @@ public class EnemyHealth : MonoBehaviour
     void Update()
     {
 
-        if (enemy.PlayerRangeCheck(enemy.chaseRadius))
+        if (enemy.PlayerRangeCheck(enemy.healthBarRadius))
         {
             healthBar.enabled = true;
-        } else if (!enemy.PlayerRangeCheck(enemy.chaseRadius))
+        } else if (!enemy.PlayerRangeCheck(enemy.healthBarRadius))
         {
             healthBar.enabled = false;
         }

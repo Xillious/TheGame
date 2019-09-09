@@ -41,7 +41,7 @@ public class Swing : MonoBehaviour
 
         if (weapon != null)
         {
-            Debug.Log(weapon.damage);
+            //Debug.Log(weapon.damage);
         }
         
         //StartCoroutine(CRT_Swinging());

@@ -8,6 +8,7 @@ TagManager:
   - Weapon
   - Icon
   - GM
+  - Ground
   layers:
   - Default
   - TransparentFX

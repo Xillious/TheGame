@@ -22,12 +22,13 @@ public class TestEnemy : Enemy
     private bool wandering = false;
     private Vector3 wanderDestiaion;
 
-    private EnemyAIState enemyState;
+    public EnemyAIState enemyState;
 
    
     IEnumerator Start()
     {
-        ChangeState(EnemyAIState.Idle);
+        //ChangeState(EnemyAIState.Idle);
+        ChooseState();
 
         while (true)
         {
@@ -76,6 +77,8 @@ public class TestEnemy : Enemy
             ChangeState(EnemyAIState.Aggro);
             KnockbackCheck();
         }
+
+        StateIndicator(idleColour);
     }
 
     private void Aggro()
@@ -86,16 +89,19 @@ public class TestEnemy : Enemy
         
         KnockbackCheck();
 
-        if (PlayerRangeCheck(chaseRadius))
+        if (!PlayerRangeCheck(chaseRadius))
         {
-            enemyState = EnemyAIState.Idle;
+            //enemyState = EnemyAIState.Idle;
+            ChooseState();
         }
 
         if(PlayerRangeCheck(attackRadius))
         {
             enemyState = EnemyAIState.Combat;
+            
         }
 
+        StateIndicator(aggroColor);
     }
 
     private void Combat()
@@ -105,7 +111,8 @@ public class TestEnemy : Enemy
         
         if (!PlayerRangeCheck(attackRadius))
         {
-            ChangeState(EnemyAIState.Idle);
+            //ChangeState(EnemyAIState.Idle);
+            ChooseState();
         }
     }
 
@@ -115,8 +122,8 @@ public class TestEnemy : Enemy
         if (rb.velocity.x == 0)
         {
             //change the 0 to recover quicker i think?.
-            //enemyState = EnemyAIState.Idle;
-            ChangeState(EnemyAIState.Idle);
+
+            ChooseState();
         }
     }
 
@@ -131,12 +138,19 @@ public class TestEnemy : Enemy
             if (Vector3.Distance(transform.position, wanderDestiaion) < 0.1f)
             {
                 // reached destination - wait a while then wander again
-                Debug.Log("reached destination");
+                //Debug.Log("reached destination");
                 wandering = false;
                 StartCoroutine(CRT_Pause());
             }
         }
-        
+
+        if (Vector2.Distance(transform.position, target.transform.position) < chaseRadius)
+        {
+            ChangeState(EnemyAIState.Aggro);
+            KnockbackCheck();
+        }
+
+        StateIndicator(wanderingColor);
     }
 
     private IEnumerator CRT_Pause()
@@ -172,7 +186,7 @@ public class TestEnemy : Enemy
             wanderDestiaion = transform.position + Vector3.right * dist;
             wandering = true;
 
-            Debug.Log("wandering to " + wanderDestiaion.ToString());
+            //Debug.Log("wandering to " + wanderDestiaion.ToString());
         }
     }
 
@@ -184,14 +198,20 @@ public class TestEnemy : Enemy
 
     private void Update()
     {
-
-        if (isTouchingWall)
+        // if the wander position is outside the scene it hits the wall and flips.
+        // if it hits the wall at all it starts wandering(fixes when it runs off after the player sort of)
+        if (isTouchingWall || atEdgeOfPlatform)
         {
-            ChangeState(EnemyAIState.Idle);
+            ChangeState(EnemyAIState.Wander);
         }
-        
+
+        //Debug.Log(PlayerRangeCheck(healthBarRadius));
+        //Debug.Log(enemyState);
 
 
+
+
+        //flips if the player is behind it
         if (PlayerRangeCheck(chaseRadius))
         {
 
@@ -224,13 +244,39 @@ public class TestEnemy : Enemy
     {
        if (rb.velocity.x != 0)
         {
-            enemyState = EnemyAIState.Knockback;
+            ChangeState(EnemyAIState.Knockback);
         }
     }
 
     private void EnemyWander(float min, float max)
     {
         new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
+    private void ChooseState()
+    {
+        test = Random.Range(0, 100);
+
+        if (test > 50)
+        {
+            ChangeState(EnemyAIState.Idle);
+        } else
+        {
+            ChangeState(EnemyAIState.Wander);
+        }
+
+
+    }
+
+    /*
+    public float TimeInState()
+    {
+        return;
+    }
+    */
+    public void StateIndicator(Color stateColour)
+    {
+        stateIndicator.square.color = stateColour;   
     }
 
     private void OnDrawGizmos()

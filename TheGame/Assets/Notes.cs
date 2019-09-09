@@ -4,6 +4,25 @@ using UnityEngine;
 
 /*
 
+   
+
+
+    - the health bar on the enemies that spawn isnt showing up because they dont recognise the player (target) position
+        - also why they dont chase
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    - make enemy prefab
    - test the scene with multiple enemies
@@ -119,6 +138,7 @@ using UnityEngine;
 
 
     CTRL + T - search for a lin in visual studio.
+    Hold alt to move a line up or down
 
 
     https://forum.unity.com/threads/c-proper-state-machine.380612/

@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public float enemyKnockbackTime;
     public float attackRadius;
     public float chaseRadius;
+    public float healthBarRadius;
     public float attackCharge;
     public float attackCooldown;
     public float wallCheckDistance;
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
     public bool isGrounded;
     public bool isFacingRight;
     public bool isTouchingWall;
+    public bool atEdgeOfPlatform;
     public bool backToPlayer;
 
     public bool targetInRange;
@@ -42,9 +44,19 @@ public class Enemy : MonoBehaviour
     //public GameObject player;
 
     public LayerMask whatIsGround;
+    public LayerMask platformEdge;
     public LayerMask playerLayer;
 
-    //public Vector2 newPosition;
+    public Color idleColour;
+    public Color wanderingColor;
+    public Color aggroColor;
+
+    public EnemyStateIndicator stateIndicator;
+
+    private void Awake()
+    {
+        stateIndicator = GetComponentInChildren<EnemyStateIndicator>();
+    }
 
     private void Start()
     {
@@ -56,6 +68,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         target.transform.position = thePlayer.transform.position;
+        
     }
 
 
@@ -112,6 +125,7 @@ public class Enemy : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         //isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
         isTouchingWall = Physics2D.Raycast(transform.position, transform.right, wallCheckDistance, whatIsGround);
+        atEdgeOfPlatform = Physics2D.Raycast(transform.position, transform.right, wallCheckDistance, platformEdge);
         backToPlayer = Physics2D.Raycast(transform.position, transform.right * 180, chaseRadius, playerLayer);
     }
 
@@ -146,6 +160,8 @@ public class Enemy : MonoBehaviour
         else
             return false;
     }
+
+   
 
 }
 
