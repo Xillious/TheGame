@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7188e431dac6741b064a78604edaf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 200
-  attackBuildup: 0.1
+  damage: 50
+  attackBuildup: 0.5
   attackDuration: 0.7
   knockback: 200
   knockbackTime: 1

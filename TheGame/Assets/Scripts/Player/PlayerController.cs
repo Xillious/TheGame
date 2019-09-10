@@ -43,10 +43,12 @@ public class PlayerController : MonoBehaviour
     private bool isTouchingPlatform;
     private bool isTouchingEnemy;
     public bool beingKnockedBack;
-
+    public bool swingingWeapon = false;
 
     private Rigidbody2D rb;
     private Animator anim;
+    public Animator myHand;
+
 
     public bool isFacingRight = true;                       // is the payer currently facing right.
     public bool hasWeapon = false;                          // has the player currently got a weapon.
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerImmunity immunity;
 
+
     //public scr_hitbox hitboxScript;
     //
     void Start()
@@ -107,6 +110,7 @@ public class PlayerController : MonoBehaviour
         idling = true;
         playerHitbox = GetComponent<BoxCollider2D>();
         immunity = GetComponentInChildren<PlayerImmunity>();
+       
     }
 
 
@@ -121,6 +125,11 @@ public class PlayerController : MonoBehaviour
 
         //Debug.Log(currentPos);
         currentPos = transform.position;
+
+        if (swingingWeapon)
+        {
+            swingingWeapon = false;
+        }
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle")) {
             if (idling == false)
@@ -184,6 +193,11 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isCrouching", isCrouching);
         anim.SetFloat("xVelocity", rb.velocity.x);
+
+        if (myWeapon != null)
+        {
+            myHand.SetBool("pressedAttack", swingingWeapon);
+        }
     }
 
     private void CheckIfWallSliding()
@@ -271,6 +285,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Attack"))
         {
             // if we have a weapon tell it to do its attack
+
+            swingingWeapon = true; 
+        
             if (myWeapon != null)
             {
                 myWeapon.SendMessage("Attack");

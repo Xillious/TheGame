@@ -36,10 +36,11 @@ public class Enemy : MonoBehaviour
 
     public bool targetInRange;
 
-    public Transform target;
+    
     public Transform wallCheck;
     public Transform groundCheck;
 
+    [HideInInspector]
     public GameObject thePlayer;
 
     public Rigidbody2D rb;
@@ -56,6 +57,8 @@ public class Enemy : MonoBehaviour
     public Color knockbackColour;
 
     public EnemyStateIndicator stateIndicator;
+
+    public Transform target;
 
     private void Awake()
     {

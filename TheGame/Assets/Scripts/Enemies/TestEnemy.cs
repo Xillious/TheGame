@@ -32,6 +32,8 @@ public class TestEnemy : Enemy
    
     IEnumerator Start()
     {
+        target = GameObject.Find("Player").transform;
+
         //ChangeState(EnemyAIState.Idle);
         ChooseState();
 

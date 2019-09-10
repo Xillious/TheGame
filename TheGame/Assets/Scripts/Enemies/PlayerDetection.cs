@@ -28,11 +28,15 @@ public class PlayerDetection : MonoBehaviour
 
        // enemy.thePlayer = other.gameObject;
 
-        if (other.gameObject.layer == 9)
+        // is the other the player?
+
+        if (other.CompareTag("Player"))
         {
             Debug.Log("Player in range");
-            //enemy.target.position = other.transform.position;
-           //enemy.thePlayer = other.gameObject;
+
+            // make the enemy target transform = player transofrm
+
+            enemy.target = other.transform;
         }
     }
 
