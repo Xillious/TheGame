@@ -8,6 +8,11 @@ public class TestEnemy : Enemy
     Vector3 positionTest;
 
     private float test;
+    private float timerTest = 10f;
+
+    float idleMin;
+    float idleMax =5;
+    float enemyIdleTime;
 
     public enum EnemyAIState
     {
@@ -79,6 +84,7 @@ public class TestEnemy : Enemy
         }
 
         StateIndicator(idleColour);
+        
     }
 
     private void Aggro()
@@ -89,12 +95,13 @@ public class TestEnemy : Enemy
         
         KnockbackCheck();
 
+        //if the player leaves the chase radius choose a new state.
         if (!PlayerRangeCheck(chaseRadius))
         {
-            //enemyState = EnemyAIState.Idle;
             ChooseState();
         }
 
+        //if the player is within the attack radius change to the combat state.
         if(PlayerRangeCheck(attackRadius))
         {
             enemyState = EnemyAIState.Combat;
@@ -106,12 +113,10 @@ public class TestEnemy : Enemy
 
     private void Combat()
     {
-
         KnockbackCheck();
         
         if (!PlayerRangeCheck(attackRadius))
         {
-            //ChangeState(EnemyAIState.Idle);
             ChooseState();
         }
     }
@@ -122,9 +127,9 @@ public class TestEnemy : Enemy
         if (rb.velocity.x == 0)
         {
             //change the 0 to recover quicker i think?.
-
             ChooseState();
         }
+        StateIndicator(knockbackColour);
     }
 
     private void Wander()
@@ -138,7 +143,6 @@ public class TestEnemy : Enemy
             if (Vector3.Distance(transform.position, wanderDestiaion) < 0.1f)
             {
                 // reached destination - wait a while then wander again
-                //Debug.Log("reached destination");
                 wandering = false;
                 StartCoroutine(CRT_Pause());
             }
@@ -153,12 +157,14 @@ public class TestEnemy : Enemy
         StateIndicator(wanderingColor);
     }
 
+    //pause when the enemy reaches the wander destination.
     private IEnumerator CRT_Pause()
     {
         float pause = Random.Range(0, pauseTime);
         yield return new WaitForSecondsRealtime(pause);
         ChangeState(EnemyAIState.Wander);
     }
+
 
     public void ChangeState(EnemyAIState newState)
     {
@@ -196,6 +202,7 @@ public class TestEnemy : Enemy
         CheckSurroundings();
     }
 
+
     private void Update()
     {
         // if the wander position is outside the scene it hits the wall and flips.
@@ -208,8 +215,31 @@ public class TestEnemy : Enemy
         //Debug.Log(PlayerRangeCheck(healthBarRadius));
         //Debug.Log(enemyState);
 
+        if (timerTest >= 0)
+        {
+            timerTest -= Time.deltaTime;
+        } else if (timerTest <= 0)
+        {
+           // Debug.Log("ADFASFDGASFASFDASFAFASDF");
+        }
+
+        //Debug.Log(timerTest);
 
 
+        
+
+
+
+
+        //Debug.Log(CountdownTimer(5f));
+
+        if (PlayerRangeCheck(6f))
+        {
+           
+           // Debug.Log("Player in Range"); 
+        }
+
+        //target.transform.position = thePlayer.transform.position;
 
         //flips if the player is behind it
         if (PlayerRangeCheck(chaseRadius))
@@ -268,12 +298,28 @@ public class TestEnemy : Enemy
 
     }
 
-    /*
-    public float TimeInState()
+
+    private void IdleTime(float idleTime)
     {
-        return;
+        //Debug.Log(idleTime);
+        if (idleTime >= 0)
+        {
+            idleTime -= Time.deltaTime;
+        }
+        else if (idleTime <= 0)
+        {
+            Debug.Log("ADFASFDGASFASFDASFAFASDF");
+
+        }
     }
-    */
+
+    private float CountdownTimer(float duration)
+    {
+        
+         duration -= Time.deltaTime;
+        return duration;
+    }
+
     public void StateIndicator(Color stateColour)
     {
         stateIndicator.square.color = stateColour;   

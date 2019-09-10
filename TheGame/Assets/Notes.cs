@@ -139,7 +139,7 @@ using UnityEngine;
 
     CTRL + T - search for a lin in visual studio.
     Hold alt to move a line up or down
-
+    CTRL + R - change all variable names at once
 
     https://forum.unity.com/threads/c-proper-state-machine.380612/
 

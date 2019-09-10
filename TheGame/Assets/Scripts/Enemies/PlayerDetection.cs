@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
-    private Enemy enemy;
+    private TestEnemy enemy;
+    
 
 
     private void Start()
     {
-        GetComponentInParent<Enemy>();
+        GetComponentInParent<TestEnemy>();
     }
 
     private void Update()
@@ -30,7 +31,8 @@ public class PlayerDetection : MonoBehaviour
         if (other.gameObject.layer == 9)
         {
             Debug.Log("Player in range");
-           
+            //enemy.target.position = other.transform.position;
+           //enemy.thePlayer = other.gameObject;
         }
     }
 

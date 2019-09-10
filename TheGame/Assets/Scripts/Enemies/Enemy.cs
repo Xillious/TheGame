@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour
     public float wanderRangeMax;
     public float groundCheckRadius;
     public float pauseTime;
+    public float timeSpentIdle;
+    public float maxIdleTime;
+
 
     private int facingDirection = 1;
 
@@ -50,6 +53,7 @@ public class Enemy : MonoBehaviour
     public Color idleColour;
     public Color wanderingColor;
     public Color aggroColor;
+    public Color knockbackColour;
 
     public EnemyStateIndicator stateIndicator;
 

@@ -24,12 +24,13 @@ public class PlayerController : MonoBehaviour
     public float dashTime;
     private float jumpApexMin = -2f;
     private float jumpApexMax = 1;
+    private float immunityTime = 5;
 
     private int amountOfJumpsLeft;
     private int facingDirection = 1;
     private int amountOfJumps;                              // amount of jumps -_-
 
-    
+
     private bool isGrounded;                                // is the player currnetly on the ground
     private bool isTouchingWall;                            // is the player touching the wall
     private bool isWallSliding;                             // is the player currently wall sliding
@@ -43,12 +44,15 @@ public class PlayerController : MonoBehaviour
     private bool isTouchingEnemy;
     public bool beingKnockedBack;
 
+
     private Rigidbody2D rb;
     private Animator anim;
 
     public bool isFacingRight = true;                       // is the payer currently facing right.
     public bool hasWeapon = false;                          // has the player currently got a weapon.
     public bool weaponInPickupRange = false;                // is there a weapon in picup range?
+    private bool idling;
+    public bool playerIsImmune;
 
     public int int_amountOfJumps = 1;                       // amount of jumps -_-
 
@@ -58,10 +62,10 @@ public class PlayerController : MonoBehaviour
     public float int_wallCheckDitance;
     public float int_wallSlidingSpeed;
     public float int_movementforceInAir;
-    public float int_airDragMultiplier = 0.8f;                  
-    public float int_variableJumpHeightMultiplier = 0.5f;       
-    public float int_wallHopForce;                              
-    public float int_wallJumpForce;                             
+    public float int_airDragMultiplier = 0.8f;
+    public float int_variableJumpHeightMultiplier = 0.5f;
+    public float int_wallHopForce;
+    public float int_wallJumpForce;
     public float int_leftWallTime = 0.2f;
     public float int_crouchSpeed;
     public float int_dashDistance;
@@ -69,7 +73,9 @@ public class PlayerController : MonoBehaviour
     public Vector2 wallHopDirection;
     public Vector2 wallJumpDirection;
 
-    public Transform groundCheck;                          
+    public Vector3 currentPos;
+
+    public Transform groundCheck;
     public Transform wallCheck;
 
     public LayerMask whatIsGround;
@@ -81,8 +87,11 @@ public class PlayerController : MonoBehaviour
     public GameObject weaponPosition;                          // where the weapon gets placed
 
     private WeaponBob _weaponBob;
-    private bool idling;
 
+    private BoxCollider2D playerHitbox;
+    private BoxCollider2D immunityHitbox;
+
+    private PlayerImmunity immunity;
 
     //public scr_hitbox hitboxScript;
     //
@@ -96,9 +105,11 @@ public class PlayerController : MonoBehaviour
         InitialiseVariables();
         _weaponBob = transform.GetComponentInChildren<WeaponBob>();
         idling = true;
+        playerHitbox = GetComponent<BoxCollider2D>();
+        immunity = GetComponentInChildren<PlayerImmunity>();
     }
 
-    
+
     void Update()
     {
         CheckInput();
@@ -106,17 +117,17 @@ public class PlayerController : MonoBehaviour
         UpdateAnimations();
         CheckIfCanJump();
         CheckIfWallSliding();
+        ImmunityCheck(playerIsImmune);
 
-        //Debug.Log(rb.velocity);
-
-        
+        //Debug.Log(currentPos);
+        currentPos = transform.position;
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Idle")) {
             if (idling == false)
-				{
+            {
                 // we just switched to idle
                 _weaponBob.StartBobbing();
-				//Debug.Log("starting bobbing at " + Time.time.ToString());
+                //Debug.Log("starting bobbing at " + Time.time.ToString());
             }
             idling = true;
         } else {
@@ -124,8 +135,8 @@ public class PlayerController : MonoBehaviour
             {
                 // we just switched off idle
                 _weaponBob.StopBobbing();
-				//Debug.Log("stopping bobbing at " + Time.time.ToString());
-			}
+                //Debug.Log("stopping bobbing at " + Time.time.ToString());
+            }
             idling = false;
         }
     }
@@ -136,7 +147,7 @@ public class PlayerController : MonoBehaviour
         CheckSurroundings();
     }
 
-    public void StartKnockback (float knockbackTime)
+    public void StartKnockback(float knockbackTime)
     {
         if (beingKnockedBack)
             return;
@@ -152,7 +163,7 @@ public class PlayerController : MonoBehaviour
         beingKnockedBack = false;
     }
 
-    public void StartDash (float dashSpeed)
+    public void StartDash(float dashSpeed)
     {
         moveSpeed = dashSpeed;
         StartCoroutine(StopDash(dashTime));
@@ -177,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckIfWallSliding()
     {
-        if(isTouchingWall && !isGrounded && rb.velocity.y < 0 && movementInputDirection != 0) //MovementInputDirection != 0 makes you have to hold the wall
+        if (isTouchingWall && !isGrounded && rb.velocity.y < 0 && movementInputDirection != 0) //MovementInputDirection != 0 makes you have to hold the wall
         {
             isWallSliding = true;
         }
@@ -245,7 +256,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonUp("Jump"))
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);           
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);
         }
 
         if (Input.GetButton("Crouch") && isGrounded)
@@ -271,20 +282,20 @@ public class PlayerController : MonoBehaviour
             myWeapon = weaponInRange;
             myWeapon.SendMessage("Pickup");
             weaponInPickupRange = false;
-            
+
         }
 
         if (Input.GetButtonDown("Drop") && hasWeapon)
         {
             if (myWeapon != null)
             {
-            myWeapon.SendMessage("Drop");
+                myWeapon.SendMessage("Drop");
             }
         }
 
         if (Input.GetButtonDown("Dash") && !tooCloseToDash && beingKnockedBack == false)
         {
-             Dash(dashDistance);
+            Dash(dashDistance);
             //StartDash(50f);
             //Debug.Log("dashing");
         }
@@ -307,12 +318,12 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if(canJump && !isWallSliding && leftWallTime > 0)
+        if (canJump && !isWallSliding && leftWallTime > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             amountOfJumpsLeft--;
         }
-        
+
         else if (isWallSliding && movementInputDirection == 0 && canJump && leftWallTime > 0) // wall hop
         {
             isWallSliding = false;
@@ -329,7 +340,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(forceToAdd, ForceMode2D.Impulse);
             //Debug.Log("Jump");
         }
-        
+
     }
 
     private void ApplyMovement()
@@ -358,12 +369,12 @@ public class PlayerController : MonoBehaviour
 
         if (isWallSliding)
         {
-            if(rb.velocity.y < -wallSlidingSpeed)
+            if (rb.velocity.y < -wallSlidingSpeed)
             {
                 rb.velocity = new Vector2(rb.velocity.x, -wallSlidingSpeed);
                 leftWallTime = int_leftWallTime;
             }
-            
+
         }
 
         if (isCrouching)
@@ -396,7 +407,7 @@ public class PlayerController : MonoBehaviour
 
     private void Dash(float distance)
     {
-        transform.position += new Vector3(movementInputDirection, 0) * distance; 
+        transform.position += new Vector3(movementInputDirection, 0) * distance;
         //transform.position = Vector3.Lerp(transform.position, (transform.position += new Vector3(movementInputDirection, 0) * distance), .5f);
     }
 
@@ -408,8 +419,8 @@ public class PlayerController : MonoBehaviour
             facingDirection *= -1;
             isFacingRight = !isFacingRight;
             transform.Rotate(0, 180, 0);
-           // GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-        }  
+            // GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+        }
     }
 
     private void Apex()
@@ -452,6 +463,33 @@ public class PlayerController : MonoBehaviour
             weaponInPickupRange = false;
         }
     }
+
+    private void ImmunityCheck(bool immunityStatus)
+    {
+         if (immunityStatus)
+            {
+                playerHitbox.enabled = false;
+                immunity.hitbox.enabled = true;
+            }
+            else if (!immunityStatus)
+            {
+                playerHitbox.enabled = true;
+                immunity.hitbox.enabled = false;
+            }
+    }
+
+        /*
+    private bool ImmunityCheck(float immunityTime)
+    {
+        if (immunityTime <= 0)
+        {
+            return true;
+        } else
+        {
+        return false;
+        }
+    }
+    */
 
     private void InitialiseVariables()
     {

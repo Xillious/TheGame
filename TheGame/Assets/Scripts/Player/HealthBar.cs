@@ -19,11 +19,8 @@ public class HealthBar : MonoBehaviour
 
         health = maxHealth;
         //should be health = playerMaxHealth
-
-
     }
 
-   
     void Update()
     {
 
@@ -33,11 +30,9 @@ public class HealthBar : MonoBehaviour
             
         }
 
-        //healthBar.fillAmount = health / maxHealth;
-        //healthBar.fillAmount = MapHealth(health, maxHealth);
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, MapHealth(health, maxHealth), lerpSpeed * Time.deltaTime);
 
-
+        //clamps the player max health (should change to actual clamp)
         if (health > maxHealth)
         {
             health = maxHealth;
@@ -50,6 +45,7 @@ public class HealthBar : MonoBehaviour
         //how much to gain
         //set current health
         //gain health 1 at a time until you have gained the set amount
+        //can probably just lerp to new ammount.
 
     }
 
