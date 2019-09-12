@@ -43,13 +43,13 @@ public class Attack : MonoBehaviour
         yield return new WaitForSecondsRealtime(weapon.attackBuildup);
         {
             hitBox.enabled = true;
-            hitboxSpriteTest.enabled = true;
+            //hitboxSpriteTest.enabled = true;
             playerController.isAttacking = true;
         }
         yield return new WaitForSecondsRealtime(weapon.attackDuration);
         {
             hitBox.enabled = false;
-            hitboxSpriteTest.enabled = false;
+            //hitboxSpriteTest.enabled = false;
             playerController.isAttacking = false;
         }
     }
