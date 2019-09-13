@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour
     private float lerpSpeed;
 
     Image healthBar;
-    public static float health;
+    public float health;
     public float maxHealth;
 
     void Start()
@@ -26,7 +26,7 @@ public class HealthBar : MonoBehaviour
 
         if (Input.GetButtonDown("Attack"))
         {
-            health -= 25f;
+           // health -= 25f;
             
         }
 

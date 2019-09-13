@@ -58,6 +58,8 @@ public class Enemy : MonoBehaviour
 
     public EnemyStateIndicator stateIndicator;
 
+    public HealthBar playerHealth;
+
     public Transform target;
 
     private void Awake()
@@ -69,6 +71,7 @@ public class Enemy : MonoBehaviour
     {
 
         rb = GetComponent<Rigidbody2D>();
+        playerHealth = FindObjectOfType<HealthBar>();
         
     }
 
@@ -103,7 +106,7 @@ public class Enemy : MonoBehaviour
                 }
 
             }
-
+           
         }
     }
 
