@@ -1,0 +1,10 @@
+diff a/TheGame/Assets/Scenes/Level 1.unity b/TheGame/Assets/Scenes/Level 1.unity	(rejected hunks)
+@@ -279,7 +279,7 @@
+     - target: {fileID: 6771873689853539950, guid: 82267b5b7b5fa5b42b6aec4633059675,
+         type: 3}
+       propertyPath: m_RootOrder
+-      value: 4
++      value: 5
+       objectReference: {fileID: 0}
+     - target: {fileID: 6771873689853539950, guid: 82267b5b7b5fa5b42b6aec4633059675,
+         type: 3}
