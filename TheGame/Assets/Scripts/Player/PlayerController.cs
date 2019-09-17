@@ -26,6 +26,16 @@ public class PlayerController : MonoBehaviour
     private float jumpApexMax = 1;
     private float immunityTime = 5;
 
+
+
+
+
+
+
+
+
+
+
     private int amountOfJumpsLeft;
     private int facingDirection = 1;
     private int amountOfJumps;                              // amount of jumps -_-
@@ -95,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerImmunity immunity;
 
+    public ParticleSystem dust;
 
     //public scr_hitbox hitboxScript;
     //
@@ -193,6 +204,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isCrouching", isCrouching);
         anim.SetFloat("xVelocity", rb.velocity.x);
+        anim.SetBool("isAttacking", isAttacking);
 
         if (myWeapon != null)
         {
@@ -339,6 +351,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             amountOfJumpsLeft--;
+            CreateDust();
         }
 
         else if (isWallSliding && movementInputDirection == 0 && canJump && leftWallTime > 0) // wall hop
@@ -430,6 +443,8 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
+        CreateDust();
+
         if (!isWallSliding && !isAttacking)
         {
             // if its inside here the player cant just let go of the wall
@@ -481,6 +496,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.gameObject.layer == 10)
+        {
+            Debug.Log("Hit Enemy");
+            StartCoroutine(CRT_PlayerImmunity(1f));
+        }
+    }
+
     private void ImmunityCheck(bool immunityStatus)
     {
          if (immunityStatus)
@@ -495,18 +519,35 @@ public class PlayerController : MonoBehaviour
             }
     }
 
-        /*
-    private bool ImmunityCheck(float immunityTime)
+    public void PlayerIsImmune(float immunityTime)
     {
+        Debug.Log(immunityTime);
+        //make player immune
+        //start counting down the immune time
+        //change player back to normal
+
+        playerIsImmune = true;
+        immunityTime -= Time.deltaTime;
         if (immunityTime <= 0)
         {
-            return true;
-        } else
-        {
-        return false;
+            playerIsImmune = false;
+            immunityTime = 5f;
         }
     }
-    */
+
+    //make coroutuine for player immunity
+    private IEnumerator CRT_PlayerImmunity(float immuneTime)
+    {
+        playerIsImmune = true;
+        yield return new WaitForSeconds(immuneTime);
+        playerIsImmune = false;
+        
+    }
+
+   private void CreateDust()
+    {
+        dust.Play();
+    }
 
     private void InitialiseVariables()
     {
@@ -525,6 +566,8 @@ public class PlayerController : MonoBehaviour
         crouchSpeed = int_crouchSpeed;
         dashDistance = int_dashDistance;
 }
+
+
 
     private void OnDrawGizmos()
     {

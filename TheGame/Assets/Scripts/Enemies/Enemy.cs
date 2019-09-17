@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public float pauseTime;
     public float timeSpentIdle;
     public float maxIdleTime;
-
+    public float playerImmunityTime = 1f;
 
     private int facingDirection = 1;
 
@@ -90,7 +90,12 @@ public class Enemy : MonoBehaviour
             Rigidbody2D player = other.collider.GetComponent<Rigidbody2D>();
             if (player != null)
             {
+
+                //knocks back the player
                 other.collider.GetComponent<PlayerController>().StartKnockback(enemyKnockbackTime);
+
+                //makes the palyer immune for a short period
+                //other.collider.GetComponent<PlayerController>().PlayerIsImmune(playerImmunityTime);
 
                 // Vector2 difference = player.transform.position - transform.position;
                 // difference = difference.normalized * enemyKnockback;

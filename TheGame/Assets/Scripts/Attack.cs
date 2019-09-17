@@ -16,6 +16,7 @@ public class Attack : MonoBehaviour
 
     private PlayerController playerController;
 
+    
     void Start()
     {
         hitBox = GetComponent<BoxCollider2D>();
@@ -23,6 +24,7 @@ public class Attack : MonoBehaviour
         weapon = GetComponentInParent<WeaponNew>();
         hitboxSpriteTest = GetComponent<SpriteRenderer>();
         playerController = FindObjectOfType<PlayerController>();
+       
     }
 
     public void SwingWeapon()
@@ -39,26 +41,25 @@ public class Attack : MonoBehaviour
 
     private IEnumerator CRT_Attack()
     {
+        playerController.isAttacking = true;
         hitUnits.Clear();
         yield return new WaitForSecondsRealtime(weapon.attackBuildup);
         {
             hitBox.enabled = true;
-<<<<<<< HEAD
+
            // hitboxSpriteTest.enabled = true;
-=======
-            //hitboxSpriteTest.enabled = true;
->>>>>>> 7e99814106a8f2fe761efdba83e1bdc43cd13af6
-            playerController.isAttacking = true;
+           //hitboxSpriteTest.enabled = true;
+           
+            
         }
         yield return new WaitForSecondsRealtime(weapon.attackDuration);
         {
             hitBox.enabled = false;
-<<<<<<< HEAD
-           // hitboxSpriteTest.enabled = false;
-=======
+
+            // hitboxSpriteTest.enabled = false;
             //hitboxSpriteTest.enabled = false;
->>>>>>> 7e99814106a8f2fe761efdba83e1bdc43cd13af6
             playerController.isAttacking = false;
+            
         }
     }
 

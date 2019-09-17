@@ -24,26 +24,31 @@ public class WaveSpawner : MonoBehaviour
     public Wave[] waves;
     private int nextWave = 0;
 
+    public Transform[] spawnPoints;
+
     public float timeBetweenWaves = 5f;
     public float waveCountdown;
 
     private float searchCountdown = 1f;
 
-
-
-    private SpawnState spawnState;
+    private SpawnState spawnState = SpawnState.Counting;
 
     void Start()
     {
         waveCountdown = timeBetweenWaves;
-        ChangeState(SpawnState.Counting);
+        
+
+        if (spawnPoints.Length == 0)
+        {
+            Debug.Log("No spawn points referneced");
+        }
     }
 
     void Update()
     {
         if (spawnState == SpawnState.Waiting)
         {
-           // Debug.Log("WAITING");
+
             //check if enemys are still alive
             if (!EnemyIsAlive())
             {
@@ -56,7 +61,7 @@ public class WaveSpawner : MonoBehaviour
             }
         }
 
-        Debug.Log(EnemyIsAlive());
+       // Debug.Log(EnemyIsAlive());
         //Debug.Log(spawnState);
 
         if (waveCountdown <= 0)
@@ -71,6 +76,36 @@ public class WaveSpawner : MonoBehaviour
         {
             waveCountdown -= Time.deltaTime;
         }
+    }
+
+    private void WaveCompleted()
+    {
+        Debug.Log("Wave Completed");
+        ChangeState(SpawnState.Counting);
+
+        if (nextWave + 1 > waves.Length - 1)
+        {
+            nextWave = 0;
+            Debug.Log("All Waves Complete  Looping");
+        }
+        else
+        {
+            nextWave++;
+        }
+    }
+
+    bool EnemyIsAlive()
+    {
+        searchCountdown -= Time.deltaTime;
+        if (searchCountdown <= 0)
+        {
+            searchCountdown = 1f;
+            if (GameObject.FindGameObjectsWithTag("Enemy") == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     IEnumerator CRT_SpawnWave(Wave wave)
@@ -89,31 +124,9 @@ public class WaveSpawner : MonoBehaviour
         yield break;
     }
 
-   private bool EnemyIsAlive()
-    {
-        searchCountdown -= Time.deltaTime;
+   
 
-        searchCountdown = 1f;
-        if (GameObject.FindGameObjectsWithTag("Enemy") == null)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-
-        }
-
-        if (searchCountdown <= 0f)
-        {
-           
-        }
-    }
-
-    private void WaveCompleted()
-    {
-        Debug.Log("Wave Completed");
-    }
+    
 
     private void ChangeState(SpawnState newState)
     {

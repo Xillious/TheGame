@@ -35,7 +35,8 @@ public class TestEnemy : Enemy
         target = GameObject.Find("Player").transform;
 
         //ChangeState(EnemyAIState.Idle);
-        ChooseState();
+        //ChooseState();
+        ChangeState(EnemyAIState.Wander);
 
         while (true)
         {

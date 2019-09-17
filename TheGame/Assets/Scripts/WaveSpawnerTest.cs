@@ -7,9 +7,9 @@ public class WaveSpawnerTest : MonoBehaviour
 
     public enum SpawnState
     {
-        SPAWNNIG,
-        WAITING,
-        COUNTING
+        Spawning,
+        Waiting,
+        Counting
     }
 
     [System.Serializable]
@@ -28,11 +28,11 @@ public class WaveSpawnerTest : MonoBehaviour
     public Transform[] spawnPoints;
 
     public float timeBetweenWaves = 5f;
-    private float waveCountdown;
-
+    public float waveCountdown;
     private float searchCountdown = 1f;
+    
 
-    private SpawnState spawnState = SpawnState.COUNTING;
+    private SpawnState spawnState = SpawnState.Counting;
 
     void Start()
     {
@@ -47,9 +47,12 @@ public class WaveSpawnerTest : MonoBehaviour
 
     void Update()
     {
-        if (spawnState == SpawnState.WAITING)
+        if (spawnState == SpawnState.Waiting)
         {
-            if (!EnemyIsAlive())
+
+            waveCountdown -= Time.deltaTime;
+
+            if (waveCountdown <= 0)
             {
                 WaveCompleted();
             }
@@ -59,16 +62,24 @@ public class WaveSpawnerTest : MonoBehaviour
             }
         }
 
+
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            WaveCompleted();
+        }
+
+        //Debug.Log(spawnState);
+
         //Debug.Log(EnemyIsAlive());
 
         if (waveCountdown <= 0)
         {
-            if (spawnState != SpawnState.SPAWNNIG)
+            if (spawnState != SpawnState.Spawning)
             {
                 StartCoroutine(SpawnWave(waves[nextWave]));
             }
         }
-        else
+        else if (waveCountdown > 0)
         {
             waveCountdown -= Time.deltaTime;
         }
@@ -80,7 +91,7 @@ public class WaveSpawnerTest : MonoBehaviour
         Debug.Log("wave Completed");
 
         //spawnState = SpawnState.COUNTING;
-        ChangeState(SpawnState.COUNTING);
+        ChangeState(SpawnState.Counting);
         waveCountdown = timeBetweenWaves;
 
         if (nextWave + 1 > waves.Length - 1)
@@ -112,7 +123,7 @@ public class WaveSpawnerTest : MonoBehaviour
     {
         Debug.Log("Spawning Wave " + _wave.name);
         //spawnState = SpawnState.SPAWNNIG;
-        ChangeState(SpawnState.SPAWNNIG);
+        ChangeState(SpawnState.Spawning);
 
         for (int i = 0; i < _wave.count; i++)
         {
@@ -120,11 +131,9 @@ public class WaveSpawnerTest : MonoBehaviour
             yield return new WaitForSeconds(1f / _wave.rate);
         }
 
-        //spawnState = SpawnState.WAITING;
-        ChangeState(SpawnState.WAITING);
-
+        //doesnt change to waiting state, just stays in spawning.
+        ChangeState(SpawnState.Waiting);
         yield break;
-
     }
 
     void SpawnEnemy(Transform enemy)
