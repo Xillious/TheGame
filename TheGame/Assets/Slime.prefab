@@ -300,7 +300,7 @@ MonoBehaviour:
   moveSpeed: 3
   health: 100
   maxHealth: 100
-  damage: 1
+  damage: 2
   enemyKnockback: 10
   enemyKnockbackTime: 0.2
   attackRadius: 1.5
@@ -315,6 +315,7 @@ MonoBehaviour:
   pauseTime: 3
   timeSpentIdle: 0
   maxIdleTime: 0
+  playerImmunityTime: 1
   isGrounded: 0
   isFacingRight: 1
   isTouchingWall: 0

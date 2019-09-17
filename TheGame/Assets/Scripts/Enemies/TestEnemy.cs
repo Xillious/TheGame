@@ -328,6 +328,13 @@ public class TestEnemy : Enemy
         stateIndicator.square.color = stateColour;   
     }
 
+    /*
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        
+    }
+    */
+
     private void OnDrawGizmos()
     {
 

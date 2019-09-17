@@ -12,13 +12,16 @@ public class HealthBar : MonoBehaviour
     public float health;
     public float maxHealth;
 
+    private PlayerController player;
+
     void Start()
     {
+        player = FindObjectOfType<PlayerController>();
         // find player health
         healthBar = GetComponent<Image>();
 
-        health = maxHealth;
-        //should be health = playerMaxHealth
+        //health = maxHealth;
+        //health = player.playerMaxHealth;
     }
 
     void Update()
@@ -30,12 +33,13 @@ public class HealthBar : MonoBehaviour
             
         }
 
-        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, MapHealth(health, maxHealth), lerpSpeed * Time.deltaTime);
+        //healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, MapHealth(health, maxHealth), lerpSpeed * Time.deltaTime);
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, MapHealth(player.playerHealth, player.playerMaxHealth), lerpSpeed * Time.deltaTime);
 
         //clamps the player max health (should change to actual clamp)
-        if (health > maxHealth)
+        if (player.playerHealth > player.playerMaxHealth)
         {
-            health = maxHealth;
+            player.playerHealth = player.playerMaxHealth;
         }
 
     }

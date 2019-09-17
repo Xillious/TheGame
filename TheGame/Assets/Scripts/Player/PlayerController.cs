@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float playerHealth;
+    public float playerHealth;
+    public float playerMaxHealth = 100;
     private float movementInputDirection;
     private float inputDirectionY;
     private float moveSpeed;                                 // player movement speed
@@ -135,7 +136,9 @@ public class PlayerController : MonoBehaviour
         ImmunityCheck(playerIsImmune);
 
         //Debug.Log(currentPos);
-        currentPos = transform.position;
+        //currentPos = transform.position;
+
+        //Debug.Log(playerHealth);
 
         if (swingingWeapon)
         {
@@ -347,8 +350,9 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (canJump && !isWallSliding && leftWallTime > 0)
+        if (canJump && !isWallSliding)
         {
+            //  && leftWallTime > 0
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             amountOfJumpsLeft--;
             CreateDust();
@@ -445,8 +449,10 @@ public class PlayerController : MonoBehaviour
     {
         CreateDust();
 
-        if (!isWallSliding && !isAttacking)
+        if (!isWallSliding)
         {
+            // && !isAttacking in the if statement if dont want to flip when attacking
+
             // if its inside here the player cant just let go of the wall
             facingDirection *= -1;
             isFacingRight = !isFacingRight;
@@ -474,6 +480,10 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        //take damage
+        Debug.Log("Player Takes Damage");
+        playerHealth -= damage;
+
         if (playerHealth <= 0)
         {
             //die
@@ -496,14 +506,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.gameObject.layer == 10)
         {
-            Debug.Log("Hit Enemy");
+            //Debug.Log("Hit Enemy");
             StartCoroutine(CRT_PlayerImmunity(1f));
+            TakeDamage(other.collider.GetComponent<TestEnemy>().damage);
         }
     }
+    
 
     private void ImmunityCheck(bool immunityStatus)
     {
@@ -565,9 +578,11 @@ public class PlayerController : MonoBehaviour
         amountOfJumps = int_amountOfJumps;
         crouchSpeed = int_crouchSpeed;
         dashDistance = int_dashDistance;
-}
 
+        playerHealth = playerMaxHealth;
+    }
 
+   
 
     private void OnDrawGizmos()
     {

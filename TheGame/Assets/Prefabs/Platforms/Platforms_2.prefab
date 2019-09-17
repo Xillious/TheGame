@@ -118,6 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6964093007179921379}
   - component: {fileID: 8005798308666900117}
+  - component: {fileID: 7988439004544293137}
   m_Layer: 13
   m_Name: Platformedge
   m_TagString: Untagged
@@ -165,6 +166,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7988439004544293137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521779475467158924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bcd8c126fabd374cbc45ae6fc9aaf7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5794529143283374060
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1027005999715823083}
   - component: {fileID: 8198108436521780051}
+  - component: {fileID: 8203565100679748803}
   m_Layer: 13
   m_Name: Platformedge (1)
   m_TagString: Untagged
@@ -222,3 +236,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8203565100679748803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5794529143283374060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bcd8c126fabd374cbc45ae6fc9aaf7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
