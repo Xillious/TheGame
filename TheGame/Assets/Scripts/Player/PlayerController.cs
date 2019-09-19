@@ -135,12 +135,20 @@ public class PlayerController : MonoBehaviour
         CheckIfWallSliding();
         ImmunityCheck(playerIsImmune);
 
-        //Debug.Log(currentPos);
-        //currentPos = transform.position;
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            Time.timeScale = 0.2f;
 
-        //Debug.Log(playerHealth);
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            Time.timeScale = 1f;
 
-        if (swingingWeapon)
+ 
+
+            //Debug.Log(currentPos);
+            //currentPos = transform.position;
+
+            //Debug.Log(playerHealth);
+
+            if (swingingWeapon)
         {
             swingingWeapon = false;
         }
@@ -208,11 +216,12 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isCrouching", isCrouching);
         anim.SetFloat("xVelocity", rb.velocity.x);
         anim.SetBool("isAttacking", isAttacking);
-
+        /*
         if (myWeapon != null)
         {
             myHand.SetBool("pressedAttack", swingingWeapon);
         }
+        */
     }
 
     private void CheckIfWallSliding()
@@ -306,6 +315,7 @@ public class PlayerController : MonoBehaviour
             if (myWeapon != null)
             {
                 myWeapon.SendMessage("Attack");
+                myHand.SetTrigger("Pressed_Attack");
             }
         }
 
@@ -449,7 +459,7 @@ public class PlayerController : MonoBehaviour
     {
         CreateDust();
 
-        if (!isWallSliding)
+        if (!isWallSliding && !isAttacking)
         {
             // && !isAttacking in the if statement if dont want to flip when attacking
 

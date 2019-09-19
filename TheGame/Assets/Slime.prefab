@@ -301,8 +301,8 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   damage: 2
-  enemyKnockback: 10
-  enemyKnockbackTime: 0.2
+  enemyKnockback: 0
+  enemyKnockbackTime: 0
   attackRadius: 1.5
   chaseRadius: 4
   healthBarRadius: 5
