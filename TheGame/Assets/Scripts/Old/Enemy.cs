@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector]
     public GameObject thePlayer;
+    public GameObject blood;
 
     public Rigidbody2D rb;
 
@@ -165,6 +166,7 @@ public class Enemy : MonoBehaviour
     private void Death()
     {
         Destroy(gameObject);
+        Instantiate(blood, transform.position, transform.rotation);
     }
 
     // is the player in the range?

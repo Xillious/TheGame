@@ -52,6 +52,9 @@ TagManager:
   - name: Platforms
     uniqueID: 92906891
     locked: 0
+  - name: Effects
+    uniqueID: 2702405111
+    locked: 0
   - name: Enemies
     uniqueID: 2808715677
     locked: 0

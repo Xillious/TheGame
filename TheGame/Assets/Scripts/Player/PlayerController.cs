@@ -108,6 +108,8 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem dust;
 
+    private AudioManager audioManager;
+
     //public scr_hitbox hitboxScript;
     //
     void Start()
@@ -122,7 +124,13 @@ public class PlayerController : MonoBehaviour
         idling = true;
         playerHitbox = GetComponent<BoxCollider2D>();
         immunity = GetComponentInChildren<PlayerImmunity>();
-       
+
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
+        {
+            Debug.LogError("No AudioManager found in scene.");
+        }
+
     }
 
 
@@ -310,12 +318,15 @@ public class PlayerController : MonoBehaviour
         {
             // if we have a weapon tell it to do its attack
 
+            
+
             swingingWeapon = true; 
         
             if (myWeapon != null)
             {
                 myWeapon.SendMessage("Attack");
                 myHand.SetTrigger("Pressed_Attack");
+                //audioManager.PlaySound("Swing");
             }
         }
 
@@ -459,7 +470,7 @@ public class PlayerController : MonoBehaviour
     {
         CreateDust();
 
-        if (!isWallSliding && !isAttacking)
+        if (!isWallSliding)
         {
             // && !isAttacking in the if statement if dont want to flip when attacking
 
@@ -523,7 +534,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Hit Enemy");
             StartCoroutine(CRT_PlayerImmunity(1f));
-            TakeDamage(other.collider.GetComponent<TestEnemy>().damage);
+            TakeDamage(other.collider.GetComponent<EnemyController>().damage);
         }
     }
     

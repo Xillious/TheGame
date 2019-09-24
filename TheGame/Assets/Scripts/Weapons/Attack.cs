@@ -80,7 +80,7 @@ public class Attack : MonoBehaviour
         if (_target.gameObject.layer == 10)
         {
             //deal damage
-            _target.GetComponent<Enemy>().TakeDamage(weapon.damage);
+            _target.GetComponent<EnemyController>().TakeDamage(weapon.damage);
 
             Instantiate(blood, _target.transform.position, _target.transform.rotation);
 
@@ -92,11 +92,11 @@ public class Attack : MonoBehaviour
                 Vector2 difference = enemy.transform.position - transform.position;
 
                 //knockback direction
-                if (!_target.GetComponent<Enemy>().isFacingRight)
+                if (!_target.GetComponent<EnemyController>().isFacingRight)
                 {
                     enemy.AddForce(new Vector3(1, 1, 0) * weapon.knockback, ForceMode2D.Impulse);
                 }
-                else if (_target.GetComponent<Enemy>().isFacingRight)
+                else if (_target.GetComponent<EnemyController>().isFacingRight)
                 {
                     enemy.AddForce(new Vector3(-1, 1, 0) * weapon.knockback, ForceMode2D.Impulse);
                 }

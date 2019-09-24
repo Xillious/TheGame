@@ -30,6 +30,10 @@ public class WaveSpawnerTest : MonoBehaviour
     public float timeBetweenWaves = 5f;
     public float waveCountdown;
     private float searchCountdown = 1f;
+
+    public float[] timesBetweenWaves;
+
+    private bool spawningWaves = false;
     
 
     private SpawnState spawnState = SpawnState.Counting;
@@ -50,7 +54,7 @@ public class WaveSpawnerTest : MonoBehaviour
         if (spawnState == SpawnState.Waiting)
         {
 
-            waveCountdown -= Time.deltaTime;
+           // waveCountdown -= Time.deltaTime;
 
             if (waveCountdown <= 0)
             {
@@ -62,16 +66,28 @@ public class WaveSpawnerTest : MonoBehaviour
             }
         }
 
-
-        if (Input.GetKeyUp(KeyCode.B))
+       if (spawningWaves)
         {
-            WaveCompleted();
+            WaveCountdown();
         }
 
-        //Debug.Log(spawnState);
+       
 
-        //Debug.Log(EnemyIsAlive());
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (!spawningWaves)
+            {
+                spawningWaves = true;
+            }
+            else if (spawningWaves)
+            {
+                spawningWaves = false;
+            }
+        }
+    }
 
+    void WaveCountdown()
+    {
         if (waveCountdown <= 0)
         {
             if (spawnState != SpawnState.Spawning)
@@ -83,25 +99,25 @@ public class WaveSpawnerTest : MonoBehaviour
         {
             waveCountdown -= Time.deltaTime;
         }
-
     }
 
     void WaveCompleted()
     {
         Debug.Log("wave Completed");
 
-        //spawnState = SpawnState.COUNTING;
+        
         ChangeState(SpawnState.Counting);
-        waveCountdown = timeBetweenWaves;
+        //waveCountdown = timeBetweenWaves;
+        waveCountdown = timesBetweenWaves[0];
 
         if (nextWave + 1 > waves.Length - 1)
         {
-            nextWave = 0;
-            Debug.Log("All Waves Complete  Looping");
+            //nextWave = 0;
+            //Debug.Log("All Waves Complete  Looping");
         }
         else
         {
-            nextWave++;
+            //nextWave++;
         }
     }
 
@@ -138,7 +154,7 @@ public class WaveSpawnerTest : MonoBehaviour
 
     void SpawnEnemy(Transform enemy)
     {
-        Debug.Log("spawning enemy" + enemy.name);
+        //Debug.Log("spawning enemy" + enemy.name);
         Transform _sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Instantiate(enemy, _sp.position, _sp.rotation);
     }

@@ -20,14 +20,14 @@ public class EnemyHealth : MonoBehaviour
 
     private SpriteRenderer healthBar;
 
-    private Enemy enemy;
+    private EnemyController enemy;
 
     
 
     void Start()
     {
         localScale = transform.localScale;
-        enemy = GetComponentInParent<Enemy>();
+        enemy = GetComponentInParent<EnemyController>();
         healthBar = GetComponent<SpriteRenderer>();
     }
 
