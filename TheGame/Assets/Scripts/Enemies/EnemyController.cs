@@ -376,8 +376,11 @@ public class EnemyController : MonoBehaviour
     }
 
     public void StateIndicator(Color stateColour)
-    {
-        stateIndicator.square.color = stateColour;
+    {   
+        if (stateIndicator != null)
+        {
+            stateIndicator.square.color = stateColour;
+        }
     }
 
     public void TakeDamage(float damage)

@@ -596,8 +596,8 @@ GameObject:
   - component: {fileID: 283214518}
   - component: {fileID: 283214521}
   - component: {fileID: 283214517}
-  - component: {fileID: 283214519}
   - component: {fileID: 283214520}
+  - component: {fileID: 283214519}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -653,42 +653,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 283214516}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87ffa0e4b664ede4d93978d106f870fe, type: 3}
+  m_Script: {fileID: 11500000, guid: dc86a6e7d494a3d4294d3e6119c78f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves:
-  - name: One
-    enemy: {fileID: 6017196513409105266, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
-    count: 3
-    rate: 0.5
-  - name: Two
-    enemy: {fileID: 6017196513409105266, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
-    count: 1
-    rate: 2
-  spawnPoints:
-  - {fileID: 2059806059}
-  - {fileID: 1627742288}
-  - {fileID: 878965771}
-  - {fileID: 209202900}
-  - {fileID: 508515712}
-  - {fileID: 314956642}
-  - {fileID: 1256879842}
-  - {fileID: 1352207329}
-  - {fileID: 1171104903}
-  - {fileID: 1343702059}
-  - {fileID: 1040956138}
-  - {fileID: 893047544}
-  - {fileID: 1346211969}
-  - {fileID: 912157864}
-  - {fileID: 1424249266}
-  - {fileID: 2130023463}
-  - {fileID: 1218025507}
-  timeBetweenWaves: 1
-  waveCountdown: 0
-  timesBetweenWaves:
-  - 3
-  - 7
-  - 12
+  treasures: []
+  spawnPoints: []
+  countdown: 0
+  countdownTime: 3
+  waiting: 0
+  waitingTime: 3
 --- !u!114 &283214520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,14 +676,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: One
-    enemy: {fileID: 6017196513409105266, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
-    count: 3
-    spawnRate: 0.5
+    enemy: {fileID: 9028179925431749389, guid: d9ca7054ef9504a4ba557fb13c57ca3f, type: 3}
+    count: 500
+    spawnRate: 0.3
   - name: Two
-    enemy: {fileID: 6017196513409105266, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
-    count: 1
+    enemy: {fileID: 5885052407933959530, guid: 3331e495d6ecf8340a6ec32ef2566625, type: 3}
+    count: 20
     spawnRate: 1
-  spawnPoints: []
+  spawnPoints:
+  - {fileID: 2059806059}
+  - {fileID: 1627742288}
+  - {fileID: 878965771}
+  - {fileID: 209202900}
+  - {fileID: 1256879842}
+  - {fileID: 1352207329}
+  - {fileID: 1171104903}
+  - {fileID: 1343702059}
+  - {fileID: 1040956138}
+  - {fileID: 893047544}
+  - {fileID: 1346211969}
+  - {fileID: 1424249266}
+  - {fileID: 2130023463}
+  - {fileID: 1218025507}
+  - {fileID: 508515712}
+  - {fileID: 314956642}
+  - {fileID: 912157864}
   timeBetweenWaves: 2
   waveCountdown: 0
   waitingTime: 4
@@ -1233,7 +1223,7 @@ PrefabInstance:
     - target: {fileID: 1297922006345256754, guid: a987f51c08cbfec43a253fd45f22ddfa,
         type: 3}
       propertyPath: damage
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1297922006345256754, guid: a987f51c08cbfec43a253fd45f22ddfa,
         type: 3}
@@ -1245,10 +1235,15 @@ PrefabInstance:
       propertyPath: attackDuration
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 1297922006345256754, guid: a987f51c08cbfec43a253fd45f22ddfa,
+        type: 3}
+      propertyPath: knockback
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 1297922007638466701, guid: a987f51c08cbfec43a253fd45f22ddfa,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1297922007638466701, guid: a987f51c08cbfec43a253fd45f22ddfa,
         type: 3}
@@ -1983,7 +1978,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1289852205}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.19903952, y: -10.03, z: 0.140625}
+  m_LocalPosition: {x: -0.19903952, y: -10.0265, z: 0.140625}
   m_LocalScale: {x: 16, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1293805515}
@@ -23710,7 +23705,7 @@ GameObject:
 --- !u!199 &4340150556223514122
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -29647,8 +29642,8 @@ MonoBehaviour:
   int_leftWallTime: 0.2
   int_crouchSpeed: 5
   int_dashDistance: 1.5
-  wallHopDirection: {x: 1, y: 0.3}
-  wallJumpDirection: {x: 1, y: 2}
+  wallHopDirection: {x: 1, y: 2}
+  wallJumpDirection: {x: 3, y: 3}
   currentPos: {x: 0, y: 0, z: 0}
   groundCheck: {fileID: 6959428594950805096}
   wallCheck: {fileID: 6959428594420368982}

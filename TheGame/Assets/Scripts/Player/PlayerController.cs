@@ -378,7 +378,7 @@ public class PlayerController : MonoBehaviour
             amountOfJumpsLeft--;
             CreateDust();
         }
-
+       
         else if (isWallSliding && movementInputDirection == 0 && canJump && leftWallTime > 0) // wall hop
         {
             isWallSliding = false;
@@ -396,11 +396,21 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Jump");
         }
 
+        /*
+       else if (canJump && isWallSliding && movementInputDirection != 0)
+       {
+           Debug.Log("Jump Off Wall");
+           rb.velocity = new Vector2(-jumpForce, -jumpForce);
+
+       }
+
+       */
+
     }
 
     private void ApplyMovement()
     {
-        if (isGrounded && beingKnockedBack == false)
+        if (isGrounded && !beingKnockedBack)
         {
             rb.velocity = new Vector2(moveSpeed * movementInputDirection, rb.velocity.y);
             leftWallTime = int_leftWallTime; ;
