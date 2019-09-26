@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8300308330254849745}
   - component: {fileID: 6051831508811421687}
   - component: {fileID: 8447227502925856430}
+  - component: {fileID: 3750297964097451512}
   m_Layer: 0
   m_Name: Background Blood
   m_TagString: Untagged
@@ -93,9 +94,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeMin: 1
-  sizeMax: 3
+  sizeMax: 2
   sprites:
   - {fileID: 21300000, guid: 0ea2567eedc01e640ad0250628c9cb2d, type: 3}
   - {fileID: 21300002, guid: 0ea2567eedc01e640ad0250628c9cb2d, type: 3}
   - {fileID: 21300004, guid: 0ea2567eedc01e640ad0250628c9cb2d, type: 3}
   - {fileID: 21300006, guid: 0ea2567eedc01e640ad0250628c9cb2d, type: 3}
+--- !u!114 &3750297964097451512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296995761702120884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9d8778b8280fcb4c9008c199a759250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startTime: 6

@@ -171,7 +171,7 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator CRT_SpawnWave(Wave wave)
     {
-        Debug.Log("Spawning Wave:" + wave.name);
+        //Debug.Log("Spawning Wave:" + wave.name);
 
         ChangeState(SpawnState.Spawning);
         

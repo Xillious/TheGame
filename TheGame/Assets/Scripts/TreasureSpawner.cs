@@ -31,7 +31,7 @@ public class TreasureSpawner : MonoBehaviour
     public float waiting;
     public float waitingTime;
 
-    private int nextWave;
+    private int nextWave = 0;
     private int spawnPointPosition = -1;
 
     private TreasureSpawnState treasureSpawnState;
@@ -59,6 +59,7 @@ public class TreasureSpawner : MonoBehaviour
 
                 case TreasureSpawnState.Waiting:
                     //run waiting
+                    Waiting();
                     break;
 
                 case TreasureSpawnState.Finished:
@@ -72,6 +73,8 @@ public class TreasureSpawner : MonoBehaviour
     void Update()
     {
         //Debug.Log(treasureSpawnState);
+        UpdateSpawnPoints();
+        //Debug.Log(spawnPointPosition);
     }
 
     void Counting()
@@ -113,7 +116,17 @@ public class TreasureSpawner : MonoBehaviour
 
     void WaveCompleted()
     {
-        Debug.Log("waeCompleted");
+        //Debug.Log("waeCompleted");
+        ChangeState(TreasureSpawnState.Counting);
+
+        if (nextWave + 1 > treasures.Length - 1)
+        {
+            Debug.Log("Finished");
+        }
+        else
+        {
+            nextWave++;
+        }
     }
 
     IEnumerator CRT_SpawnTreasure(Treasure treasure)
@@ -132,15 +145,32 @@ public class TreasureSpawner : MonoBehaviour
 
     void SpawnTreasure(Transform treasure)
     {
-        Debug.Log("Spawning Treasure" + treasure.name);
+        //Debug.Log("Spawning Treasure" + treasure.name);
         spawnPointPosition = spawnPointPosition + 1;
         Transform sp = spawnPoints[spawnPointPosition];
-        //Instantiate(treasure, transform.position.normalized, transform.rotation);
+        Instantiate(treasure, sp.position, sp.rotation);
+
+      
+    }
+
+    void SpawnTreasureRandom(Transform treasure)
+    {
+        //Debug.Log("Spawning Treasure" + treasure.name);
+        spawnPointPosition = spawnPointPosition + 1;
+        Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Instantiate(treasure, sp.position, sp.rotation);
     }
 
     private void ChangeState(TreasureSpawnState newState)
     {
         treasureSpawnState = newState;
+    }
+
+    private void UpdateSpawnPoints()
+    {
+        if (spawnPointPosition >= spawnPoints.Length - 1)
+        {
+            spawnPointPosition = -1;
+        }
     }
 }

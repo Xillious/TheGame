@@ -15,6 +15,7 @@ public class BloodSplatter : MonoBehaviour
     public int maxSounds = 3;
     float timePassed;
     int soundsPlayed;
+    
 
     void Start()
     {

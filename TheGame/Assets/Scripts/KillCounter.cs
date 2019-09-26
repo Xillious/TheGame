@@ -17,10 +17,7 @@ public class KillCounter : MonoBehaviour
     {
         kills.text = "Kills: " + killCount;
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            
-        }
+        
     }
 
     public void EnemyKilled()

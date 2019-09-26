@@ -16,12 +16,7 @@ public class RandomSprite : MonoBehaviour
 
     void Start()
     {
-        rend = GetComponent<SpriteRenderer>();
-        int randomSprite = Random.Range(0, sprites.Length);
-        float randomSize = Random.Range(sizeMin, sizeMax);
-
-        rend.sprite = sprites[randomSprite];
-        transform.localScale = new Vector3(randomSize, randomSize, 0f);
+        Regen();
 
         
     }
@@ -30,5 +25,16 @@ public class RandomSprite : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void Regen()
+    {
+        rend = GetComponent<SpriteRenderer>();
+        int randomSprite = Random.Range(0, sprites.Length);
+        float randomSize = Random.Range(sizeMin, sizeMax);
+
+        rend.sprite = sprites[randomSprite];
+        transform.localScale = new Vector3(randomSize, randomSize, 0f);
+
     }
 }
