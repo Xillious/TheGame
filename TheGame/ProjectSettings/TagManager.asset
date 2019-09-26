@@ -9,6 +9,7 @@ TagManager:
   - Icon
   - GM
   - Ground
+  - Treasure
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Player Detection
   - Player Immunity
   - Background
-  - 
+  - Treasure
   - 
   - 
   - 
@@ -63,6 +64,9 @@ TagManager:
     locked: 0
   - name: Items
     uniqueID: 3151704999
+    locked: 0
+  - name: Treasure
+    uniqueID: 1543843991
     locked: 0
   - name: UI
     uniqueID: 2266987375

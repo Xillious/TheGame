@@ -87,6 +87,8 @@ public class EnemyController : MonoBehaviour
 
     private AudioManager audioManager;
 
+    private KillCounter killcounter;
+
     public EnemyAIState enemyState;
 
     private void Awake()
@@ -100,6 +102,8 @@ public class EnemyController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         playerHealth = FindObjectOfType<HealthBar>();
+
+        killcounter = FindObjectOfType<KillCounter>();
 
         audioManager = AudioManager.instance;
         if (audioManager == null)
@@ -397,7 +401,10 @@ public class EnemyController : MonoBehaviour
     private void Death()
     {
         Destroy(gameObject);
-        Instantiate(blood, transform.position, transform.rotation);
+        //Instantiate(blood, transform.position, transform.rotation);
+        Instantiate(blood, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+        killcounter.EnemyKilled();
+        //play death sound (blood hitting wall?)
     }
 
     public bool PlayerRangeCheck(float distance)

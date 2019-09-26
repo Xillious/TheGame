@@ -30,8 +30,9 @@ public class TreasureSpawner : MonoBehaviour
     public float countdownTime;
     public float waiting;
     public float waitingTime;
-                
-    
+
+    private int nextWave;
+    private int spawnPointPosition = -1;
 
     private TreasureSpawnState treasureSpawnState;
 
@@ -70,14 +71,17 @@ public class TreasureSpawner : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(treasureSpawnState);
+        //Debug.Log(treasureSpawnState);
     }
 
     void Counting()
     {
         if (countdown <= 0)
         {
-            ChangeState(TreasureSpawnState.Spawning);
+            if (treasureSpawnState != TreasureSpawnState.Spawning)
+            {
+                StartCoroutine(CRT_SpawnTreasure(treasures[nextWave]));
+            }
         }
         else if (countdown > 0)
         {
@@ -118,6 +122,7 @@ public class TreasureSpawner : MonoBehaviour
 
         for (int i = 0; i < treasure.count; i++)
         {
+            SpawnTreasure(treasure.treasure);
             yield return new WaitForSeconds(treasure.spawnRate);
         }
 
@@ -127,7 +132,11 @@ public class TreasureSpawner : MonoBehaviour
 
     void SpawnTreasure(Transform treasure)
     {
-        Debug.Log("Spawning Treasure");
+        Debug.Log("Spawning Treasure" + treasure.name);
+        spawnPointPosition = spawnPointPosition + 1;
+        Transform sp = spawnPoints[spawnPointPosition];
+        //Instantiate(treasure, transform.position.normalized, transform.rotation);
+        Instantiate(treasure, sp.position, sp.rotation);
     }
 
     private void ChangeState(TreasureSpawnState newState)

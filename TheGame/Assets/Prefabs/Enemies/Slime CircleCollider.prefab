@@ -151,7 +151,7 @@ MonoBehaviour:
   wallCheck: {fileID: 9028179926216196715}
   groundCheck: {fileID: 9028179926749162364}
   thePlayer: {fileID: 0}
-  blood: {fileID: 5600119910253573227, guid: fe5986c83caafef44b9b516a47c4f059, type: 3}
+  blood: {fileID: 5296995761702120884, guid: f2cb7b4755608f543a7168369df3dc26, type: 3}
   rb: {fileID: 9028179925431749385}
   whatIsGround:
     serializedVersion: 2
