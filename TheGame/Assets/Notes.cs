@@ -11,7 +11,20 @@ using UnityEngine;
         - also why they dont chase
 
 
+    Colour Codes Background
+     
+    foreground
+     dakk - light
+     - 15141a
+     - 333140
+     - 514e66
+     - 6f6b8c
 
+
+    background
+     - 000000
+     - 020203
+     - 0a0a0d
 
 
 

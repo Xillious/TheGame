@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 public class Door : MonoBehaviour
 {
     public string nextLevel;
+
     private float doorHitbox;
+
+    public bool doorIsOpen;
 
     private Transform player;
 
-
     private SpriteRenderer rend;
+
     public Sprite doorOpen, doorClosed;
 
     void Start()
@@ -24,16 +27,7 @@ public class Door : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            OpenDoor();
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            CloseDoor();
-        }
-
+       
         if (PlayerRangeCheck(doorHitbox))
         {
             Debug.Log("DOOR");
@@ -41,14 +35,14 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OpenDoor()
+    public void OpenDoor()
     {
         rend.sprite = doorOpen;
         doorHitbox = 0.5f;
         //opening sound?
     }
 
-    private void CloseDoor()
+    public void CloseDoor()
     {
         rend.sprite = doorClosed;
         doorHitbox = 0f;
