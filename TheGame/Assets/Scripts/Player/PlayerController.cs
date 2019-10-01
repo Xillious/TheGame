@@ -125,6 +125,8 @@ public class PlayerController : MonoBehaviour
         playerHitbox = GetComponent<BoxCollider2D>();
         immunity = GetComponentInChildren<PlayerImmunity>();
 
+        //dust = GetComponentInChildren<ParticleSystem>();
+
         audioManager = AudioManager.instance;
         if (audioManager == null)
         {

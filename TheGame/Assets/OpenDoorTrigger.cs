@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenDoorOnCollision : MonoBehaviour
+public class OpenDoorTrigger : MonoBehaviour
 {
 
+    public GameObject doorObject;
+    
     private Door door;
 
     void Start()
     {
-        door = FindObjectOfType<Door>();
+        door = doorObject.GetComponent<Door>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class GameMaster : MonoBehaviour
 
     public Canvas canvas;
 
-    
 
     public GameObject doorOne;
     public GameObject doorTwo;
@@ -47,5 +47,10 @@ public class GameMaster : MonoBehaviour
         timeLeft -= Time.deltaTime;
        // Debug.Log(timeLeft);
 
+    }
+
+    public void FirstLevel()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 }

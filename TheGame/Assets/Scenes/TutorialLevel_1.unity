@@ -143,7 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: TestLevel 2
+  doorhitboxSize: 0.5
   doorIsOpen: 0
+  player: {fileID: 0}
   doorOpen: {fileID: 21300004, guid: 084e34bf1b650ab4095af24340d800e8, type: 3}
   doorClosed: {fileID: 21300002, guid: 084e34bf1b650ab4095af24340d800e8, type: 3}
 --- !u!212 &149502960
@@ -991,7 +993,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: TestLevel 2
+  doorhitboxSize: 0.5
   doorIsOpen: 0
+  player: {fileID: 0}
   doorOpen: {fileID: 21300004, guid: 084e34bf1b650ab4095af24340d800e8, type: 3}
   doorClosed: {fileID: 21300002, guid: 084e34bf1b650ab4095af24340d800e8, type: 3}
 --- !u!1 &1356976083
@@ -18064,6 +18068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1773104730}
   - component: {fileID: 1773104729}
+  - component: {fileID: 1773104732}
   - component: {fileID: 1773104728}
   m_Layer: 0
   m_Name: DoorTrigger
@@ -18081,9 +18086,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1773104727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab1c2385407242b43830618f832f140b, type: 3}
+  m_Script: {fileID: 11500000, guid: 79aa78977dd8ccb41b0d3314f765d0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorObject: {fileID: 149502958}
 --- !u!61 &1773104729
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18124,6 +18130,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1773104732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773104727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79aa78977dd8ccb41b0d3314f765d0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorObject: {fileID: 1346293067}
 --- !u!1 &1960538336
 GameObject:
   m_ObjectHideFlags: 0
