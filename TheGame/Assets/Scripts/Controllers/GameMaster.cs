@@ -10,7 +10,10 @@ public class GameMaster : MonoBehaviour
 
     public GameObject player;
 
+   
+
     public Canvas canvas;
+
 
 
     public GameObject doorOne;
@@ -19,13 +22,15 @@ public class GameMaster : MonoBehaviour
     void Start()
     {
         canvas = FindObjectOfType<Canvas>();
-        //doorOne.GetComponent<Door>();
-        //doorTwo.GetComponent<Door>();
+        
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
+      
+
+        /*
         if (Input.GetKeyDown(KeyCode.G))
         {
             doorOne.GetComponent<Door>().OpenDoor();
@@ -35,9 +40,10 @@ public class GameMaster : MonoBehaviour
         {
             doorTwo.GetComponent<Door>().OpenDoor();
         }
+        */
 
 
-
+        
 
         if (Input.GetKeyUp(KeyCode.R))
         {
@@ -45,8 +51,7 @@ public class GameMaster : MonoBehaviour
         }
 
         timeLeft -= Time.deltaTime;
-       // Debug.Log(timeLeft);
-
+       
     }
 
     public void FirstLevel()

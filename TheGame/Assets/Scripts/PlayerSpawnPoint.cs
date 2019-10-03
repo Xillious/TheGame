@@ -7,7 +7,7 @@ public class PlayerSpawnPoint : MonoBehaviour
 
     public Transform playerSpawnPoint;
 
-    private GameMaster gameMaster;
+    public GameMaster gameMaster;
 
     private void Awake()
     {

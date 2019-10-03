@@ -47,7 +47,6 @@ public class Door : MonoBehaviour
 
         if (PlayerRangeCheck(doorHitbox))
         {
-            Debug.Log("DOOR");
             NextLevel(nextLevel);
         }
 
