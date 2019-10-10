@@ -6,18 +6,18 @@ public class Portal : MonoBehaviour
 {
     public Transform newPosition;
 
-    private GameMaster gameMaster;
+    private Transform playerTransform;
 
     void Start()
     {
-        gameMaster = FindObjectOfType<GameMaster>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            gameMaster.player.transform.position = newPosition.transform.position;
+            playerTransform.transform.position = newPosition.transform.position;
             //play sound?
         }
     }  

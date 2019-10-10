@@ -20,6 +20,8 @@ public class Door : MonoBehaviour
 
     private GameObject playerGameobject;
 
+    private AudioManager audioManager;
+
     void Start()
     {
 
@@ -32,7 +34,13 @@ public class Door : MonoBehaviour
         //player = GameObject.FindGameObjectWithTag("Player").transform;
 
         StartCoroutine(FindPlayer());
-        
+
+
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
+        {
+            Debug.LogError("No AudioManager found in scene.");
+        }
     }
 
     private IEnumerator FindPlayer()
@@ -47,6 +55,7 @@ public class Door : MonoBehaviour
 
         if (PlayerRangeCheck(doorHitbox))
         {
+            audioManager.PlaySound("DoorSound");
             NextLevel(nextLevel);
         }
 

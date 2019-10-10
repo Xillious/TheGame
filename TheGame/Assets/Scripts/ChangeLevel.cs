@@ -16,9 +16,15 @@ public class ChangeLevel : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("Player").transform;
+        StartCoroutine(ActivateScore());
     }
 
+    private IEnumerator ActivateScore()
+    {
+        yield return new WaitForSecondsRealtime(.3f);
+        player = GameObject.Find("Player").transform;
+
+    }
     
     void Update()
     {

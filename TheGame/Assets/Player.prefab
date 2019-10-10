@@ -104,6 +104,8 @@ MonoBehaviour:
   playerHealth: 0
   playerMaxHealth: 100
   dashTime: 2
+  runningSound: DoorSound
+  jumpSound: DoorSound
   canJump: 0
   isCrouching: 0
   isAttacking: 0

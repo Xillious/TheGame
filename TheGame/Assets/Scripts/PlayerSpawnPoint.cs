@@ -7,19 +7,21 @@ public class PlayerSpawnPoint : MonoBehaviour
 
     public Transform playerSpawnPoint;
 
-    public GameMaster gameMaster;
+    //public GameMaster gameMaster;
+
+    private Transform playerTransform;
 
     private void Awake()
     {
-        gameMaster = FindObjectOfType<GameMaster>();
+        //gameMaster = FindObjectOfType<GameMaster>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Start()
     {
-        if (gameMaster.player.transform.position != playerSpawnPoint.transform.position)
-        {
-            gameMaster.player.transform.position = playerSpawnPoint.transform.position;
-        }
+       
+            playerTransform.transform.position = playerSpawnPoint.transform.position;
+       
     }
 
     // Update is called once per frame

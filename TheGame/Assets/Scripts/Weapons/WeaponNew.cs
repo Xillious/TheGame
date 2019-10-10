@@ -83,6 +83,13 @@ public class WeaponNew : MonoBehaviour
         thePlayer.myWeapon = null;
     }
 
+    public void Swap()
+    {
+        DetatchFromParent();
+        thePlayer.hasWeapon = false;
+        thePlayer.myWeapon = null;
+    }
+
     private void SetParent(GameObject newParent)
     {
         transform.SetParent(newParent.transform);

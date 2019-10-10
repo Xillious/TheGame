@@ -27,9 +27,6 @@ public class CreatePlayer : MonoBehaviour
         {
             spawntime -= Time.deltaTime;
         }
-        if (Input.GetButtonDown("Jump"))
-        {
-            //Instantiate(gameMaster.player);
-        }
+       
     }
 }

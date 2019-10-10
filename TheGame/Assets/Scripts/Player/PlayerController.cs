@@ -27,8 +27,8 @@ public class PlayerController : MonoBehaviour
     private float jumpApexMax = 1;
     private float immunityTime = 5;
 
-
-
+    public string runningSound;
+    public string jumpSound;
 
 
 
@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     public bool weaponInPickupRange = false;                // is there a weapon in picup range?
     private bool idling;
     public bool playerIsImmune;
+    public bool playingSound;
 
     public int int_amountOfJumps = 1;                       // amount of jumps -_-
 
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckIfWallSliding();
         ImmunityCheck(playerIsImmune);
+        PlayerSounds();
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
             Time.timeScale = 0.2f;
@@ -234,15 +236,34 @@ public class PlayerController : MonoBehaviour
         */
     }
 
+    private void PlayerSounds()
+    {
+        StartCoroutine(RunningSound());
+    }
+
+    private IEnumerator RunningSound()
+    {
+        if (isGrounded && rb.velocity.x != 0)
+        {
+            yield return new WaitForEndOfFrame();
+            //audioManager.PlaySound(runningSound); 
+            playingSound = true;
+            //Debug.Log("Playing Footstep");
+            yield return new WaitForSeconds(.5f);
+        }
+        
+        
+    }
+
     private void CheckIfWallSliding()
     {
         if (isTouchingWall && !isGrounded && rb.velocity.y < 0 && movementInputDirection != 0) //MovementInputDirection != 0 makes you have to hold the wall
         {
-            isWallSliding = true;
+            //isWallSliding = true;
         }
         else
         {
-            isWallSliding = false;
+            //isWallSliding = false;
         }
     }
 
@@ -309,11 +330,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButton("Crouch") && isGrounded)
         {
-            isCrouching = true;
+            //isCrouching = true;
         }
         else
         {
-            isCrouching = false;
+           //isCrouching = false;
         }
 
         if (Input.GetButtonDown("Attack"))
@@ -379,6 +400,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             amountOfJumpsLeft--;
             CreateDust();
+            audioManager.PlaySound(jumpSound);
         }
        
         else if (isWallSliding && movementInputDirection == 0 && canJump && leftWallTime > 0) // wall hop

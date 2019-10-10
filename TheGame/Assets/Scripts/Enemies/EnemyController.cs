@@ -98,7 +98,8 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator Start()
     {
-        target = GameObject.Find("Player").transform;
+        //target = GameObject.Find("Player").transform;
+        target = FindObjectOfType<PlayerController>().transform;
 
         rb = GetComponent<Rigidbody2D>();
         playerHealth = FindObjectOfType<HealthBar>();
@@ -403,7 +404,7 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
         //Instantiate(blood, transform.position, transform.rotation);
         Instantiate(blood, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
-        killcounter.EnemyKilled();
+        //killcounter.EnemyKilled();
         //play death sound (blood hitting wall?)
     }
 
