@@ -7,6 +7,86 @@ using UnityEngine;
    
 
 
+
+    if certain score is met activate item
+
+    ony at the time a score is met
+        eg if it is 100 its active but if its 101 its not
+
+    if score = an amount and time is greater or less than an amount
+
+
+    if score is greater than on amount and less than another amount
+
+
+
+
+
+    using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ActivateScoreExact : MonoBehaviour
+{
+
+    public GameObject item;
+
+    public int requiredScore;
+
+    private Score score;
+
+    void Start()
+    {
+        score = FindObjectOfType<Score>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        ShowItem(requiredScore);
+    }
+
+    void ShowItem(int reqScore)
+    {
+        if (score.score == reqScore)
+        {
+            item.SetActive(true);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     - the health bar on the enemies that spawn isnt showing up because they dont recognise the player (target) position
         - also why they dont chase
 

@@ -8,6 +8,12 @@ public class LevelMaster : MonoBehaviour
 
     private Timer timer;
 
+    private Score score;
+
+    public GameObject door;
+
+    public int requiredScore;
+
     private void Awake()
     {
         timer = FindObjectOfType<Timer>();
@@ -16,13 +22,24 @@ public class LevelMaster : MonoBehaviour
     {
         timer.SetStartTime(levelTime);
         Time.timeScale = 1f;
-
+        score = FindObjectOfType<Score>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UnlockNextLevel(requiredScore);
+    }
+
+    void UnlockNextLevel(int reqScore)
+    {
+        if (score.score >= reqScore)
+        {
+            if (door != null)
+            {
+                door.SetActive(true);
+            }
+        }
     }
 }

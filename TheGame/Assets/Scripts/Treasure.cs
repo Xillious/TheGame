@@ -47,7 +47,7 @@ public class Treasure : MonoBehaviour
         if (PlayerRangeCheck(pickupRadius))
         {
             audioManager.PlaySound(soundName);
-            score.PickupCoin(treasureValue);
+            score.AwardScore(treasureValue);
             Destroy(gameObject);
             Instantiate(scoreText, transform.position, transform.rotation);
         }

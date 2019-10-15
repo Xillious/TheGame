@@ -18,13 +18,10 @@ public class Score : MonoBehaviour
     {
         scoreValue.text = "Score: " + score;
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            PickupCoin(10);
-        }
+        
     }
 
-    public void PickupCoin(int scoreIncrease)
+    public void AwardScore(int scoreIncrease)
     {
         score = score + scoreIncrease;
     }

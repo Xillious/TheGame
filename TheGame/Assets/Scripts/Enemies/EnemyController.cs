@@ -44,6 +44,7 @@ public class EnemyController : MonoBehaviour
     private float test;
     private float timerTest = 10f;
 
+    public int enemyScoreValue;
 
     private int facingDirection = 1;
 
@@ -62,6 +63,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public GameObject thePlayer;
     public GameObject blood;
+    public GameObject enemyScoreText;
 
     public Rigidbody2D rb;
 
@@ -89,6 +91,8 @@ public class EnemyController : MonoBehaviour
 
     private KillCounter killcounter;
 
+    private Score score;
+
     public EnemyAIState enemyState;
 
     private void Awake()
@@ -103,7 +107,7 @@ public class EnemyController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         playerHealth = FindObjectOfType<HealthBar>();
-
+        score = FindObjectOfType<Score>();
         killcounter = FindObjectOfType<KillCounter>();
 
         audioManager = AudioManager.instance;
@@ -406,6 +410,11 @@ public class EnemyController : MonoBehaviour
         Instantiate(blood, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
         //killcounter.EnemyKilled();
         //play death sound (blood hitting wall?)
+        score.AwardScore(enemyScoreValue);
+        if (enemyScoreText != null)
+        {
+            Instantiate(enemyScoreText, transform.position, transform.rotation = new Quaternion(0, 0, 0, 0));
+        }
     }
 
     public bool PlayerRangeCheck(float distance)

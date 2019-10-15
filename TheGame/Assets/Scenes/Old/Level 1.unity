@@ -681,7 +681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: One
-    enemy: {fileID: 9028179925431749389, guid: d9ca7054ef9504a4ba557fb13c57ca3f, type: 3}
+    enemy: {fileID: 9028179925431749389, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
     count: 1000
     spawnRate: 0.2
   - name: Two
@@ -30253,6 +30253,8 @@ MonoBehaviour:
   playerHealth: 0
   playerMaxHealth: 100
   dashTime: 2
+  runningSound: 
+  jumpSound: 
   canJump: 0
   isCrouching: 0
   isAttacking: 0
@@ -30263,6 +30265,7 @@ MonoBehaviour:
   hasWeapon: 0
   weaponInPickupRange: 0
   playerIsImmune: 0
+  playingSound: 0
   int_amountOfJumps: 2
   int_moveSpeed: 10
   int_jumpForce: 15
