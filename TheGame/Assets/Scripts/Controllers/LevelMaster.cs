@@ -10,7 +10,9 @@ public class LevelMaster : MonoBehaviour
 
     private Score score;
 
-    public GameObject door;
+    public GameObject doorObject;
+
+    private Door door;
 
     public int requiredScore;
 
@@ -23,7 +25,7 @@ public class LevelMaster : MonoBehaviour
         timer.SetStartTime(levelTime);
         Time.timeScale = 1f;
         score = FindObjectOfType<Score>();
-
+        door = doorObject.GetComponent<Door>();
     }
 
     // Update is called once per frame
@@ -36,9 +38,10 @@ public class LevelMaster : MonoBehaviour
     {
         if (score.score >= reqScore)
         {
-            if (door != null)
+            if (doorObject != null)
             {
-                door.SetActive(true);
+                doorObject.SetActive(true);
+                door.OpenDoor();
             }
         }
     }

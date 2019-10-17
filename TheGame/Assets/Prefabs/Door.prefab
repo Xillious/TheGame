@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: 
+  doorhitboxSize: 2
   doorIsOpen: 0
+  player: {fileID: 0}
   doorOpen: {fileID: 21300004, guid: 084e34bf1b650ab4095af24340d800e8, type: 3}
   doorClosed: {fileID: 21300002, guid: 084e34bf1b650ab4095af24340d800e8, type: 3}
