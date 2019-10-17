@@ -5,13 +5,19 @@ using UnityEngine;
 public class LevelMaster : MonoBehaviour
 {
     public int levelTime = 60;
+    public int[] increaseSpawnRateAt;
+
+    public float[] increasedSpawnRate;
 
     private Timer timer;
 
     private Score score;
+    private NextLevelScore nextLevelScore;
 
     public GameObject doorObject;
+    public GameObject waveSpawnerObject;
 
+    private WaveSpawner waveSpawner;
     private Door door;
 
     public int requiredScore;
@@ -19,6 +25,7 @@ public class LevelMaster : MonoBehaviour
     private void Awake()
     {
         timer = FindObjectOfType<Timer>();
+        nextLevelScore = FindObjectOfType<NextLevelScore>();
     }
     void Start()
     {
@@ -26,12 +33,37 @@ public class LevelMaster : MonoBehaviour
         Time.timeScale = 1f;
         score = FindObjectOfType<Score>();
         door = doorObject.GetComponent<Door>();
+        waveSpawner = waveSpawnerObject.GetComponent<WaveSpawner>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         UnlockNextLevel(requiredScore);
+
+        //Debug.Log(waveSpawner.waves[0].spawnRate);
+
+       // Debug.Log(nextLevelScore.requiredScore);
+
+        nextLevelScore.requiredScore = requiredScore;
+
+        
+
+        if (score.score > increaseSpawnRateAt[0] && score.score < increaseSpawnRateAt[1])
+        {
+            waveSpawner.waves[0].spawnRate = increasedSpawnRate[0];
+        }
+         else if (score.score > increaseSpawnRateAt[1] && score.score < increaseSpawnRateAt[2])
+        {
+            waveSpawner.waves[0].spawnRate = increasedSpawnRate[1];
+        }
+        else if (score.score > increaseSpawnRateAt[2] && score.score < increaseSpawnRateAt[3])
+        {
+            waveSpawner.waves[0].spawnRate = increasedSpawnRate[2];
+        }
+
+         
     }
 
     void UnlockNextLevel(int reqScore)
@@ -43,6 +75,19 @@ public class LevelMaster : MonoBehaviour
                 doorObject.SetActive(true);
                 door.OpenDoor();
             }
+        }
+    }
+
+    void IncreaseSpawnRate(float newSpawnRate)
+    {
+        waveSpawner.waves[0].spawnRate = newSpawnRate;
+    }
+
+    void ScoreToIncreaseAt(int _score)
+    {
+        if (score.score >= _score)
+        {
+            IncreaseSpawnRate(increasedSpawnRate[0]);
         }
     }
 }

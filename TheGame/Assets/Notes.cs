@@ -20,6 +20,17 @@ using UnityEngine;
 
 
 
+    new enemies 
+    new weapons? 
+
+    showcase
+        only play for a couple of minutes
+        quick reset so not opening and cosing the game.
+
+    highscore level
+        single level where enemies and treasure endlessly spawn?
+
+
 
 
     using System.Collections;

@@ -11980,8 +11980,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1407015202}
   - component: {fileID: 1407015205}
-  - component: {fileID: 1407015204}
   - component: {fileID: 1407015203}
+  - component: {fileID: 1407015204}
   m_Layer: 5
   m_Name: Highscore
   m_TagString: Untagged
@@ -12017,10 +12017,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1407015201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53f23898901e0544993c2190b287cae0, type: 3}
+  m_Script: {fileID: 11500000, guid: 976485510ca3d3940a00c59b71fba3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  requiredScore: 0
 --- !u!114 &1407015204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12222,6 +12222,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 60
+  increaseSpawnRateAt: 
+  increasedSpawnRate: []
+  doorObject: {fileID: 0}
+  waveSpawnerObject: {fileID: 0}
+  requiredScore: 0
 --- !u!4 &1486923978
 Transform:
   m_ObjectHideFlags: 0

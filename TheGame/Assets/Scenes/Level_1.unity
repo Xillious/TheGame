@@ -283,7 +283,7 @@ PrefabInstance:
     - target: {fileID: 4879893693234701590, guid: b686ddd7ea8ca1942b420bb34d410975,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879893693234701584, guid: b686ddd7ea8ca1942b420bb34d410975,
         type: 3}
@@ -293,7 +293,7 @@ PrefabInstance:
     - target: {fileID: 4879893693234701584, guid: b686ddd7ea8ca1942b420bb34d410975,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8
+      value: 1.91
       objectReference: {fileID: 0}
     - target: {fileID: 4879893693234701584, guid: b686ddd7ea8ca1942b420bb34d410975,
         type: 3}
@@ -2810,8 +2810,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 999
+  increaseSpawnRateAt: f4010000e8030000dc050000d0070000ac0d0000
+  increasedSpawnRate:
+  - 1
+  - 0.5
+  - 0.1
   doorObject: {fileID: 45032898}
-  requiredScore: 1800
+  waveSpawnerObject: {fileID: 1955721691}
+  requiredScore: 2000
 --- !u!4 &1136949743
 Transform:
   m_ObjectHideFlags: 0
@@ -18684,8 +18690,8 @@ MonoBehaviour:
   waves:
   - name: WaveOne
     enemy: {fileID: 9028179925431749389, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
-    count: 20
-    spawnRate: 1
+    count: 300
+    spawnRate: 2
   spawnPoints:
   - {fileID: 1968581431}
   - {fileID: 478481191}
@@ -18693,6 +18699,7 @@ MonoBehaviour:
   waveCountdown: 0
   waitingTime: 0
   timeUntilNextWave: 0
+  fasterSpawnRate: 0
 --- !u!4 &1955721693
 Transform:
   m_ObjectHideFlags: 0

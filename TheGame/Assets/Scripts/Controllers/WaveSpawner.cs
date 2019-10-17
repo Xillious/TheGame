@@ -32,6 +32,8 @@ public class WaveSpawner : MonoBehaviour
     public float waitingTime;
     public float timeUntilNextWave;
 
+    public float fasterSpawnRate = 2;
+
     private float searchCountdown = 1f;
 
     private SpawnState spawnState;

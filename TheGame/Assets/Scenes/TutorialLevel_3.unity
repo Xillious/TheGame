@@ -142,6 +142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 60
+  increaseSpawnRateAt: 
+  increasedSpawnRate: []
+  doorObject: {fileID: 0}
+  waveSpawnerObject: {fileID: 0}
+  requiredScore: 401
 --- !u!4 &147308410
 Transform:
   m_ObjectHideFlags: 0
