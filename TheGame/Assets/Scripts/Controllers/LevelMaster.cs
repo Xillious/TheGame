@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelMaster : MonoBehaviour
 {
@@ -90,4 +91,6 @@ public class LevelMaster : MonoBehaviour
             IncreaseSpawnRate(increasedSpawnRate[0]);
         }
     }
+
+    
 }

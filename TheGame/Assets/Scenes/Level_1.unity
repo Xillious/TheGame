@@ -2809,7 +2809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd281bda633ed643a3f7d4fba6481a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTime: 999
+  levelTime: 3
   increaseSpawnRateAt: f4010000e8030000dc050000d0070000ac0d0000
   increasedSpawnRate:
   - 1

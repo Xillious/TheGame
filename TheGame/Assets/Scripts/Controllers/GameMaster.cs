@@ -8,13 +8,11 @@ public class GameMaster : MonoBehaviour
 
     private float timeLeft = 10;
 
+    public bool gameOver = false;
+
     public GameObject player;
 
-   
-
     public Canvas canvas;
-
-
 
     public GameObject doorOne;
     public GameObject doorTwo;
@@ -54,8 +52,15 @@ public class GameMaster : MonoBehaviour
        
     }
 
+    public void Menu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     public void FirstLevel()
     {
         SceneManager.LoadScene("Lobby");
     }
+
+    
 }

@@ -12,9 +12,12 @@ public class PauseMenu : MonoBehaviour
 
     private Timer timer;
 
+    GameMaster gameMaster;
+
     void Start()
     {
         timer = FindObjectOfType<Timer>();
+        gameMaster = FindObjectOfType<GameMaster>();
     }
 
     // Update is called once per frame
@@ -59,5 +62,6 @@ public class PauseMenu : MonoBehaviour
         endLevelUI.SetActive(true);
         Time.timeScale = 0f;
         atEndOfLevel = true;
+        //gameMaster.gameOver = true;
     }
 }
