@@ -17,8 +17,11 @@ public class LevelMaster : MonoBehaviour
 
     public GameObject doorObject;
     public GameObject waveSpawnerObject;
+    public GameObject treasureSpawnerObject;
 
     private WaveSpawner waveSpawner;
+    private TreasureSpawner treasureSpawner;
+
     private Door door;
 
     public int requiredScore;
@@ -35,7 +38,7 @@ public class LevelMaster : MonoBehaviour
         score = FindObjectOfType<Score>();
         door = doorObject.GetComponent<Door>();
         waveSpawner = waveSpawnerObject.GetComponent<WaveSpawner>();
-        
+        treasureSpawner = treasureSpawnerObject.GetComponent<TreasureSpawner>();
     }
 
     // Update is called once per frame

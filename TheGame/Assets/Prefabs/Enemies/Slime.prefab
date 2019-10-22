@@ -129,7 +129,7 @@ MonoBehaviour:
   damage: 0.5
   enemyKnockback: 0
   enemyKnockbackTime: 0
-  attackRadius: 1
+  attackRadius: 7
   chaseRadius: 7
   healthBarRadius: 0
   attackCharge: 0

@@ -16,7 +16,7 @@ public class TreasureSpawner : MonoBehaviour
     public class Treasure
     {
         public string name;
-        public Transform treasure;
+        public Transform[] treasure;
         public int count;
         public float spawnRate;
     }
@@ -135,7 +135,7 @@ public class TreasureSpawner : MonoBehaviour
 
         for (int i = 0; i < treasure.count; i++)
         {
-            SpawnTreasure(treasure.treasure);
+            SpawnTreasure(treasure.treasure[0]);
             yield return new WaitForSeconds(treasure.spawnRate);
         }
 

@@ -690,8 +690,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treasures:
   - name: Coins
-    treasure: {fileID: 5077497786733553816, guid: 434ccaa87b6529b4fba40cd7e00173aa,
-      type: 3}
+    treasure:
+    - {fileID: 5077497786733553816, guid: 434ccaa87b6529b4fba40cd7e00173aa, type: 3}
     count: 4
     spawnRate: 0.5
   spawnPoints:
@@ -1032,6 +1032,7 @@ MonoBehaviour:
   increasedSpawnRate: []
   doorObject: {fileID: 1346293067}
   waveSpawnerObject: {fileID: 0}
+  treasureSpawnerObject: {fileID: 0}
   requiredScore: 400
 --- !u!4 &1261607581
 Transform:

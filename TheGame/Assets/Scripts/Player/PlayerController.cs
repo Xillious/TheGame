@@ -147,11 +147,14 @@ public class PlayerController : MonoBehaviour
         ImmunityCheck(playerIsImmune);
         PlayerSounds();
 
+
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha5))
             Time.timeScale = 0.2f;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Time.timeScale = 1f;
+        */
 
  
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackupWeapon : MonoBehaviour
 {
-    public GameObject backupWeapon;
+    public GameObject[] backupWeapon;
     private PlayerController playerController;
 
     void Start()
@@ -15,7 +15,7 @@ public class BackupWeapon : MonoBehaviour
         if (playerController.myWeapon == null)
         {
             Debug.Log("Player has no weapon");
-            Instantiate(backupWeapon, transform.position, transform.rotation);
+            Instantiate(backupWeapon[Random.Range(0, backupWeapon.Length)], transform.position, transform.rotation);
         }
     }
 

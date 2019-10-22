@@ -274,7 +274,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c058e533bfd7cc44b68e89983f6bb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blood: {fileID: 5600119910253573227, guid: fe5986c83caafef44b9b516a47c4f059, type: 3}
+  blood:
+  - {fileID: 5600119910253573227, guid: fe5986c83caafef44b9b516a47c4f059, type: 3}
+  - {fileID: 5600119910253573227, guid: 9b31b419f4f27e4499069d52f8cb863f, type: 3}
 --- !u!61 &1297922007638466701
 BoxCollider2D:
   m_ObjectHideFlags: 0

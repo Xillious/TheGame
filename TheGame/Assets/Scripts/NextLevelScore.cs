@@ -24,6 +24,6 @@ public class NextLevelScore : MonoBehaviour
     void Update()
     {
         scoreValue.text = "next level " + requiredScore;
-        Debug.Log(requiredScore);
+        //Debug.Log(requiredScore);
     }
 }

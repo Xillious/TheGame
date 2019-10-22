@@ -16,7 +16,7 @@ public class Attack : MonoBehaviour
 
     private PlayerController playerController;
 
-    public GameObject blood;
+    public GameObject[] blood;
     
     void Start()
     {
@@ -82,7 +82,7 @@ public class Attack : MonoBehaviour
             //deal damage
             _target.GetComponent<EnemyController>().TakeDamage(weapon.damage);
 
-            Instantiate(blood, _target.transform.position, _target.transform.rotation);
+            Instantiate(blood[Random.Range(0, blood.Length)], _target.transform.position, _target.transform.rotation);
 
             //knockback enemy
             Rigidbody2D enemy = _target.GetComponent<Rigidbody2D>();
