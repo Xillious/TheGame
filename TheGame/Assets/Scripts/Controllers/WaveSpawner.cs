@@ -23,7 +23,7 @@ public class WaveSpawner : MonoBehaviour
     }
 
     public Wave[] waves;
-    private int nextWave = 0;
+    public int nextWave = 0;
 
     public Transform[] spawnPoints;
 
@@ -133,7 +133,7 @@ public class WaveSpawner : MonoBehaviour
         //wait a certain amount of time and move to next level.
     }
 
-    private void WaveCompleted()
+    public void WaveCompleted()
     {
         Debug.Log("Wave Completed");
         ChangeState(SpawnState.Counting);
@@ -198,7 +198,7 @@ public class WaveSpawner : MonoBehaviour
         //spawn enemy
         Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        Debug.Log("Spawning Enemy: " + enemy.name);
+        //Debug.Log("Spawning Enemy: " + enemy.name);
         Instantiate(enemy, sp.position, sp.rotation);
     }
 }

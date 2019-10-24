@@ -45,7 +45,7 @@ public class GameMaster : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.R))
         {
-            Instantiate(player, transform.position, transform.rotation);
+            //Instantiate(player, transform.position, transform.rotation);
         }
 
         timeLeft -= Time.deltaTime;

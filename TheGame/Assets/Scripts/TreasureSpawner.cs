@@ -114,7 +114,7 @@ public class TreasureSpawner : MonoBehaviour
 
     }
 
-    void WaveCompleted()
+    public void WaveCompleted()
     {
         //Debug.Log("waeCompleted");
         ChangeState(TreasureSpawnState.Counting);

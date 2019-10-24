@@ -48,6 +48,11 @@ public class HighscoreTable : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        //AddHighscoreEntry(10000, "CMK");
+    }
+
     private void Update()
     {
         //AddHighscoreEntry(10000, "CMK");

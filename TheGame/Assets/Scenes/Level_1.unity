@@ -136,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15247502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1, y: 1.79, z: 0}
+  m_LocalPosition: {x: 2.1, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740330097}
@@ -2253,6 +2253,11 @@ MonoBehaviour:
     - {fileID: 1503122916309927629, guid: 9038ff3b2cd8f5849b2ec1b37ad73ac1, type: 3}
     count: 10
     spawnRate: 1
+  - name: Coins
+    treasure:
+    - {fileID: 5373691787362889825, guid: 08630753924556448946d3a0047c2bd9, type: 3}
+    count: 10
+    spawnRate: 1
   spawnPoints:
   - {fileID: 1744989960}
   - {fileID: 835339021}
@@ -2322,7 +2327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835339020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.75, y: -8, z: 0}
+  m_LocalPosition: {x: -6.75, y: -9.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740330097}
@@ -2780,7 +2785,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017391328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.84, y: -8, z: 0}
+  m_LocalPosition: {x: 6.84, y: -9.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740330097}
@@ -2888,7 +2893,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076319809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.290001, y: -8, z: 0}
+  m_LocalPosition: {x: 8.290001, y: -9.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740330097}
@@ -3005,15 +3010,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd281bda633ed643a3f7d4fba6481a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTime: 3
-  increaseSpawnRateAt: f4010000e8030000dc050000d0070000ac0d0000
+  levelTime: 10
+  increaseSpawnRateAt: e8030000dc050000d0070000c4090000b80b0000
   increasedSpawnRate:
+  - 1.5
   - 1
   - 0.5
-  - 0.1
+  startNextWaveAt: 
   doorObject: {fileID: 45032898}
   waveSpawnerObject: {fileID: 1955721691}
-  treasureSpawnerObject: {fileID: 0}
+  treasureSpawnerObject: {fileID: 740330095}
   requiredScore: 90000
 --- !u!4 &1136949743
 Transform:
@@ -15118,7 +15124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665251699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.01, y: 1.79, z: 0}
+  m_LocalPosition: {x: -2.01, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740330097}
@@ -18530,7 +18536,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744989959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.2, y: -8, z: 0}
+  m_LocalPosition: {x: -8.2, y: -9.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740330097}
@@ -19008,8 +19014,17 @@ MonoBehaviour:
   waves:
   - name: WaveOne
     enemy: {fileID: 9028179925431749389, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
-    count: 300
+    count: 10
     spawnRate: 2
+  - name: WaveOne
+    enemy: {fileID: 9028179925431749389, guid: 49cdcab82e5989e44bce4f471bd1efff, type: 3}
+    count: 20
+    spawnRate: 1
+  - name: WaveOne
+    enemy: {fileID: 9028179925431749389, guid: d544dc23055db9e4f8ffd50abeb795e3, type: 3}
+    count: 200
+    spawnRate: 0.5
+  nextWave: 0
   spawnPoints:
   - {fileID: 1968581431}
   - {fileID: 478481191}

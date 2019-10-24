@@ -10,6 +10,8 @@ public class LevelMaster : MonoBehaviour
 
     public float[] increasedSpawnRate;
 
+    public int[] startNextWaveAt;
+
     private Timer timer;
 
     private Score score;
@@ -51,8 +53,22 @@ public class LevelMaster : MonoBehaviour
        // Debug.Log(nextLevelScore.requiredScore);
 
         nextLevelScore.requiredScore = requiredScore;
+        //Debug.Log(waveSpawner.waves[0].spawnRate);
 
-        
+        if (score.score == 1000)
+        {
+            waveSpawner.WaveCompleted();
+            score.score = score.score + 1;
+        }
+        if (score.score == 2001)
+        {
+            waveSpawner.WaveCompleted();
+        }
+
+        if (score.kills > 10 && score.kills < 20)
+        {
+            
+        }
 
         if (score.score > increaseSpawnRateAt[0] && score.score < increaseSpawnRateAt[1])
         {

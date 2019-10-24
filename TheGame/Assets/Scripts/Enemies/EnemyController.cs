@@ -411,6 +411,7 @@ public class EnemyController : MonoBehaviour
         //killcounter.EnemyKilled();
         //play death sound (blood hitting wall?)
         score.AwardScore(enemyScoreValue);
+        score.EnemyKilled();
         if (enemyScoreText != null)
         {
             Instantiate(enemyScoreText, transform.position, transform.rotation = new Quaternion(0, 0, 0, 0));

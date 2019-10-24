@@ -8,6 +8,8 @@ public class Score : MonoBehaviour
 
     public int score;
     Text scoreValue;
+
+    public int kills;
     
     void Start()
     {
@@ -18,11 +20,20 @@ public class Score : MonoBehaviour
     {
         scoreValue.text = "Score: " + score;
 
-        
+        //Debug.Log(kills);
+        if (kills == 10)
+        {
+            //Debug.Log("10 Kills");
+        }
     }
 
     public void AwardScore(int scoreIncrease)
     {
         score = score + scoreIncrease;
+    }
+
+    public void EnemyKilled()
+    {
+        kills = kills + 1;
     }
 }
