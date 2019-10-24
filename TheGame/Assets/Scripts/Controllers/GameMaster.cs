@@ -40,7 +40,7 @@ public class GameMaster : MonoBehaviour
         }
         */
 
-
+        
         
 
         if (Input.GetKeyUp(KeyCode.R))
