@@ -643,18 +643,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treasures:
   - name: One
-    treasure: {fileID: 2592179583787427096, guid: f6934fe5ee3e8de4c978aa23a51545f2,
-      type: 3}
+    treasure:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     count: 7
     spawnRate: 1
   - name: One
-    treasure: {fileID: 8832420677056575993, guid: 746ec5b70147b76488ffbeee24152296,
-      type: 3}
+    treasure:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     count: 4
     spawnRate: 1
   - name: One
-    treasure: {fileID: 8832420677056575993, guid: 746ec5b70147b76488ffbeee24152296,
-      type: 3}
+    treasure:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     count: 4
     spawnRate: 1
   spawnPoints:
@@ -681,13 +687,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: One
-    enemy: {fileID: 9028179925431749389, guid: c2b539a2de19fcd4996ac00c87af75da, type: 3}
+    enemy: {fileID: 9028179925431749389, guid: 376b6e1a2a270734cbabd6ccb527aa9b, type: 3}
     count: 1000
-    spawnRate: 0.2
+    spawnRate: 0.05
   - name: Two
     enemy: {fileID: 5885052407933959530, guid: 3331e495d6ecf8340a6ec32ef2566625, type: 3}
     count: 20
     spawnRate: 1
+  nextWave: 0
   spawnPoints:
   - {fileID: 2059806059}
   - {fileID: 1627742288}
@@ -710,6 +717,7 @@ MonoBehaviour:
   waveCountdown: 0
   waitingTime: 4
   timeUntilNextWave: 0
+  fasterSpawnRate: 2
 --- !u!114 &283214521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,6 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18bb88df76a6d348839102ebd2b7d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOver: 0
   player: {fileID: 6959428594937205920, guid: 1e107eb863860214f95dcf31589d4ec8, type: 3}
   canvas: {fileID: 0}
   doorOne: {fileID: 0}
@@ -23614,6 +23623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+  kills: 0
 --- !u!4 &1960828158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1626398034804240340, guid: 9930c06cc3416294db38fbda03498bb8,
@@ -23916,7 +23926,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.31215674, y: 0.3162086}
     oldSize: {x: 0.5714286, y: 0.5714286}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
@@ -24082,7 +24092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c058e533bfd7cc44b68e89983f6bb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blood: {fileID: 0}
+  blood:
+  - {fileID: 0}
 --- !u!114 &1761481827506442960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29409,7 +29420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c058e533bfd7cc44b68e89983f6bb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blood: {fileID: 0}
+  blood:
+  - {fileID: 0}
 --- !u!1 &5027967805186302198
 GameObject:
   m_ObjectHideFlags: 0
@@ -29473,7 +29485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c058e533bfd7cc44b68e89983f6bb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blood: {fileID: 0}
+  blood:
+  - {fileID: 0}
 --- !u!61 &5458167276535370594
 BoxCollider2D:
   m_ObjectHideFlags: 0

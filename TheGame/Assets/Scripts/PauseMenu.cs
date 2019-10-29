@@ -30,8 +30,9 @@ public class PauseMenu : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.N) && !atEndOfLevel)
+        if (Input.GetButtonDown("Start") && !atEndOfLevel)
         {
+
             if (gameIsPaused)
             {
                 Resume();
@@ -41,6 +42,8 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+
+
     }
 
     void Pause()

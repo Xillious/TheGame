@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treasureValue: 100
-  startTime: 50
+  startTime: 10
   pickupRadius: 0.4
   soundName: Coin
   player: {fileID: 0}

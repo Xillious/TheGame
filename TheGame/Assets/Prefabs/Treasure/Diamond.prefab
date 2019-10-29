@@ -92,7 +92,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a83dccb65ea874ca3057ef8ec7ec2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treasureValue: 5000
-  startTime: 100
+  treasureValue: 2000
+  startTime: 4
   pickupRadius: 0.45
+  soundName: Diamond
   player: {fileID: 0}
+  scoreText: {fileID: 4715789021146212708, guid: 583fc4b862669d440b082acbd2c153a0,
+    type: 3}

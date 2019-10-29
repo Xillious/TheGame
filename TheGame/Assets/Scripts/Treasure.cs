@@ -16,6 +16,8 @@ public class Treasure : MonoBehaviour
 
     public Transform player;
 
+    
+
     private Score score;
 
     private AudioManager audioManager;
@@ -27,6 +29,7 @@ public class Treasure : MonoBehaviour
         time = startTime;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         score = FindObjectOfType<Score>();
+        
 
         audioManager = AudioManager.instance;
         if (audioManager == null)

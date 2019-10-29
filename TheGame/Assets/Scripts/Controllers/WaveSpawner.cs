@@ -137,7 +137,7 @@ public class WaveSpawner : MonoBehaviour
     {
         Debug.Log("Wave Completed");
         ChangeState(SpawnState.Counting);
-
+        
         waveCountdown = timeUntilNextWave;
         waitingTime = timeBetweenWaves;
 

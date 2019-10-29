@@ -20,6 +20,7 @@ public class LevelMaster : MonoBehaviour
     public GameObject doorObject;
     public GameObject waveSpawnerObject;
     public GameObject treasureSpawnerObject;
+    public GameObject nextWave;
 
     private WaveSpawner waveSpawner;
     private TreasureSpawner treasureSpawner;
@@ -27,6 +28,8 @@ public class LevelMaster : MonoBehaviour
     private Door door;
 
     public int requiredScore;
+
+    private int waveCount;
 
     private void Awake()
     {
@@ -55,14 +58,31 @@ public class LevelMaster : MonoBehaviour
         nextLevelScore.requiredScore = requiredScore;
         //Debug.Log(waveSpawner.waves[0].spawnRate);
 
-        if (score.score == 1000)
+        //Debug.Log(waveCount);
+
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            waveSpawner.WaveCompleted();
-            score.score = score.score + 1;
+           // Instantiate(nextWave);
+           
         }
-        if (score.score == 2001)
+
+        if (score.score >= 3000 && waveCount == 0)
         {
             waveSpawner.WaveCompleted();
+            waveCount++;
+        }
+        if (score.score >= 7000 && waveCount == 1)
+        {
+            waveSpawner.WaveCompleted();
+            waveCount++;
+        }if (score.score >= 12000 && waveCount == 2)
+        {
+            waveSpawner.WaveCompleted();
+            waveCount++;
+        }if (score.score >= 15000 && waveCount == 3)
+        {
+            waveSpawner.WaveCompleted();
+            waveCount++;
         }
 
         if (score.kills > 10 && score.kills < 20)
@@ -70,6 +90,7 @@ public class LevelMaster : MonoBehaviour
             
         }
 
+        /*
         if (score.score > increaseSpawnRateAt[0] && score.score < increaseSpawnRateAt[1])
         {
             waveSpawner.waves[0].spawnRate = increasedSpawnRate[0];
@@ -82,7 +103,7 @@ public class LevelMaster : MonoBehaviour
         {
             waveSpawner.waves[0].spawnRate = increasedSpawnRate[2];
         }
-
+        */
          
     }
 

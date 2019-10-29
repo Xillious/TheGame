@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9028179925431749385}
   - component: {fileID: 9028179925431749382}
   - component: {fileID: 8083776921508776259}
+  - component: {fileID: 4460523058621070949}
   m_Layer: 10
   m_Name: Spider
   m_TagString: Enemy
@@ -124,8 +125,8 @@ MonoBehaviour:
   enemyName: New Slime
   hitSound: HitSlime
   moveSpeed: 4
-  health: 100
-  maxHealth: 100
+  health: 150
+  maxHealth: 150
   damage: 0.5
   enemyKnockback: 0
   enemyKnockbackTime: 0
@@ -186,9 +187,28 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.5
+--- !u!95 &4460523058621070949
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028179925431749384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c99bed589a81eb4eaa2e76f3e32978d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9028179925715931364
 GameObject:
   m_ObjectHideFlags: 0

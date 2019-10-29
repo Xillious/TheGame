@@ -6479,6 +6479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerpSpeed: 0
+  health: 0
   maxHealth: 100
 --- !u!222 &662082466
 CanvasRenderer:
@@ -6740,14 +6741,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e793ac5460f1c2c4c9ee7525a9b5cc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: 0
+  playerMaxHealth: 100
   dashTime: 2
+  runningSound: 
+  jumpSound: 
   canJump: 0
   isCrouching: 0
   isAttacking: 0
   beingKnockedBack: 0
+  swingingWeapon: 0
+  myHand: {fileID: 0}
   isFacingRight: 1
   hasWeapon: 0
   weaponInPickupRange: 0
+  playerIsImmune: 0
+  playingSound: 0
   int_amountOfJumps: 2
   int_moveSpeed: 10
   int_jumpForce: 15
@@ -6764,6 +6773,7 @@ MonoBehaviour:
   int_dashDistance: 1.5
   wallHopDirection: {x: 1, y: 0.3}
   wallJumpDirection: {x: 1, y: 2}
+  currentPos: {x: 0, y: 0, z: 0}
   groundCheck: {fileID: 1596979981}
   wallCheck: {fileID: 2089659187}
   whatIsGround:
@@ -6778,6 +6788,7 @@ MonoBehaviour:
   myWeapon: {fileID: 0}
   weaponInRange: {fileID: 0}
   weaponPosition: {fileID: 697777438}
+  dust: {fileID: 0}
 --- !u!212 &776797430
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6813,7 +6824,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1022381939
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 54ec6c4d002468144a4bcc66dd7e642f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -16628,8 +16639,13 @@ MonoBehaviour:
     enemy: {fileID: 6215000747513733495, guid: 19035d75aaa5c904593ea313ca1c4b8f, type: 3}
     count: 4
     spawnRate: 0.5
+  nextWave: 0
+  spawnPoints: []
   timeBetweenWaves: 5
   waveCountdown: 0
+  waitingTime: 0
+  timeUntilNextWave: 0
+  fasterSpawnRate: 2
 --- !u!4 &2082132838
 Transform:
   m_ObjectHideFlags: 0
@@ -16668,6 +16684,8 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 957748451}
   timeBetweenWaves: 5
+  waveCountdown: 0
+  timesBetweenWaves: []
 --- !u!1 &2084959524 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1659003180898981264, guid: 29a9d04f1f5af5f44bd42d6b0239ad78,
@@ -16926,7 +16944,7 @@ PrefabInstance:
     - target: {fileID: 1297922006345256755, guid: a987f51c08cbfec43a253fd45f22ddfa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.62
+      value: 23.54
       objectReference: {fileID: 0}
     - target: {fileID: 1297922006345256755, guid: a987f51c08cbfec43a253fd45f22ddfa,
         type: 3}
@@ -17119,6 +17137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c058e533bfd7cc44b68e89983f6bb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: []
 --- !u!212 &1659003179948566214
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17154,7 +17173,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1143262297
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b89050c1fcf2eb4c917e2bb5cc6a0de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -17261,7 +17280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659003179960980457}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.9, y: 6.23, z: 0.06505658}
+  m_LocalPosition: {x: 26.91, y: 6.23, z: 0.06505658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1659003180556703650}
@@ -17304,7 +17323,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1143262297
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: 8bac99084f74a684abedc7c7c10a161e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -17378,7 +17397,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1143262297
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 92b984380dd5c11408261b986201e7be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

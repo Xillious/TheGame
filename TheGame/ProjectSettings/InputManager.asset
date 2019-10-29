@@ -362,7 +362,7 @@ InputManager:
     descriptiveName: Dash
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: l
+    positiveButton: k
     altNegativeButton: 
     altPositiveButton: joystick 1 button 1
     gravity: 1000
@@ -394,7 +394,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: 
+    positiveButton: escape
     altNegativeButton: 
     altPositiveButton: joystick 1 button 7
     gravity: 1000

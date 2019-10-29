@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour
         {
             if (myWeapon != null)
             {
-                myWeapon.SendMessage("Drop");
+                //myWeapon.SendMessage("Drop");
             }
         }
 
@@ -381,12 +381,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Select"))
         {
-            InitialiseVariables();
+            //InitialiseVariables();
         }
 
         if (Input.GetButtonDown("Start"))
         {
-            Debug.Log("Start");
+           // Debug.Log("Start");
         }
 
         if (inputDirectionY < 0 && JumpApex() && rb.velocity.y > 0)
@@ -539,8 +539,8 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         //take damage
-        Debug.Log("Player Takes Damage");
-        playerHealth -= damage;
+        //Debug.Log("Player Takes Damage");
+        //playerHealth -= damage;
 
         if (playerHealth <= 0)
         {
